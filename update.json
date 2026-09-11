@@ -1,0 +1,9 @@
+{
+  "versionCode": 39,
+  "versionName": "39.0",
+  "notes": "\u9996\u4e2a\u652f\u6301\u5e94\u7528\u5185\u66f4\u65b0\u7684\u7248\u672c\uff1a\u6253\u5f00 App \u81ea\u52a8\u68c0\u67e5\u65b0\u7248\u672c\uff0c\u53d1\u73b0\u540e\u53ef\u5728\u5e94\u7528\u5185\u4e0b\u8f7d\u5b89\u88c5\uff0c\u4e0d\u7528\u518d\u624b\u52a8\u4f20\u5b89\u88c5\u5305\u3002",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v39.apk",
+  "apk2": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v39.apk",
+  "size": 461780,
+  "sha256": "3bc0843da7f979d1b91ea512f4380d132bf8ca22eb646a04c443d898a64312f1"
+}
