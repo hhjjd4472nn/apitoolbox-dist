@@ -1,9 +1,9 @@
 {
-  "versionCode": 40,
-  "versionName": "40.0",
-  "notes": "\u4fee\u590d\u66f4\u65b0\u63d0\u9192\uff1a\u70b9\u300c\u7a0d\u540e\u300d\u540e\u4e0b\u6b21\u6253\u5f00 App \u8fd8\u4f1a\u518d\u63d0\u9192\uff1b\u68c0\u67e5\u5931\u8d25\u4f1a\u5f39\u6846\u8bf4\u660e\u539f\u56e0\u800c\u4e0d\u662f\u4e00\u95ea\u800c\u8fc7\uff1b\u65b0\u589e\u4e00\u4e2a\u66f4\u7a33\u7684\u66f4\u65b0\u6e90\uff08\u56fd\u5185\u591a\u7f51\u7edc\u73af\u5883\u81ea\u52a8\u5207\u6362\uff09\u3002",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v40.apk",
-  "apk2": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v40.apk",
-  "size": 461780,
-  "sha256": "eba9f9e9743044d9ca1b75e5e75f074f7a9a8593d1655ff6a9bbd31e87325699"
+  "versionCode": 41,
+  "versionName": "41.0",
+  "notes": "\u4e94\u4e2a\u6a21\u5757\u6279\u91cf\u64cd\u4f5c\u5168\u90e8\u6539\u4e3a\u5e76\u884c\u5904\u7406\uff0c\u8d26\u53f7\u591a\u65f6\u5237\u65b0/\u7b7e\u5230\u901f\u5ea6\u660e\u663e\u53d8\u5feb\uff1b\u5c0f\u6cf0\u3001\u62fc\u8f66\u6539\u7528\u6c38\u4e45\u51ed\u8bc1\uff0c\u4e0d\u518d\u53cd\u590d\u767b\u5f55\uff08\u66f4\u7701\u989d\u5ea6\uff0c\u4e5f\u4e0d\u5bb9\u6613\u89e6\u53d1\u9650\u6d41\uff09\uff1b\u300c\u6211\u7684\u300d\u9875\u65b0\u589e\u300c\u6279\u91cf\u5e76\u53d1\u5ea6\u300d\u8bbe\u7f6e\uff08\u9ed8\u8ba4 3\uff0c\u53ef\u8c03 1~8\uff09\uff1b\u65b0\u589e\u7ad9\u70b9\u9650\u6d41\u81ea\u52a8\u9000\u907f\uff1a\u88ab\u9650\u6d41\u65f6\u81ea\u52a8\u7b49\u5f85\u5e76\u63d0\u793a\u5269\u4f59\u65f6\u95f4\uff0c\u4e0d\u518d\u8fde\u7eed\u649e\u5899\u3002",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v41.apk",
+  "apk2": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v41.apk",
+  "size": 465876,
+  "sha256": "593d7479531ea896deb646ab813c6cbabd29e11e9fb18330077928d1eaa456a7"
 }
