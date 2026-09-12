@@ -1,10 +1,10 @@
 {
-  "versionCode": 42,
-  "versionName": "42.0",
-  "notes": "\u4fee\u590d\u66f4\u65b0\u4e0b\u8f7d\u5931\u8d25\u7684\u95ee\u9898\uff1a\u539f\u6765\u5907\u7528\u4e0b\u8f7d\u5730\u5740\u5176\u5b9e\u662f\u6307\u56de\u540c\u4e00\u4e2a\u5730\u5740\uff08\u7b49\u4e8e\u6ca1\u6709\u5907\u7528\uff09\uff0c\u73b0\u5728\u6539\u6210\u4e24\u4e2a\u771f\u6b63\u53ef\u7528\u7684\u955c\u50cf\uff1b\u540c\u65f6\u628a\u6700\u7a33\u5b9a\u7684\u68c0\u67e5\u66f4\u65b0\u5730\u5740\u653e\u5230\u7b2c\u4e00\u4f4d\uff0c\u68c0\u67e5\u66f4\u5feb\u3001\u66f4\u4e0d\u5bb9\u6613\u5931\u8d25\u3002\u672c\u7248\u662f\u4fee\u590d\u66f4\u65b0\u529f\u80fd\u7684\u7248\u672c\uff0c\u5efa\u8bae\u88c5\u3002",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v42.apk",
-  "apk2": "https://ghproxy.net/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v42.apk",
-  "apk3": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v42.apk",
+  "versionCode": 43,
+  "versionName": "43.0",
+  "notes": "\u4fee\u590d\u88c5\u4e0d\u4e0a\u7684\u95ee\u9898\uff1a\u4e4b\u524d\u660e\u660e\u5df2\u7ecf\u6388\u6743\u300c\u5b89\u88c5\u672a\u77e5\u5e94\u7528\u300d\uff0c\u5e94\u7528\u8fd8\u662f\u53cd\u590d\u8ba9\u4f60\u53bb\u6388\u6743\u3001\u6c38\u8fdc\u4e0d\u5f39\u5b89\u88c5\u754c\u9762\uff08\u5df2\u6539\u4e3a\u76f4\u63a5\u8c03\u8d77\u7cfb\u7edf\u5b89\u88c5\u5668\uff09\uff1b\u4e0b\u8f7d\u5b8c\u4e0d\u518d\u91cd\u590d\u4e0b\u8f7d\uff1b\u4e0b\u8f7d\u5730\u5740\u6539\u7528\u56fd\u5185\u955c\u50cf\uff0c\u5feb\u5f88\u591a\uff1b\u300c\u6211\u7684 \u2192 \u5185\u7f6e\u96a7\u9053\u300d\u65b0\u589e\u300c\u66f4\u65b0\u300d\u5f00\u5173\uff0c\u53ef\u8ba9\u68c0\u67e5\u548c\u4e0b\u8f7d\u8d70\u96a7\u9053\uff0c\u9ed8\u8ba4\u5df2\u6253\u5f00\u3002",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v43.apk",
+  "apk2": "https://ghproxy.net/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v43.apk",
+  "apk3": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v43.apk",
   "size": 465876,
-  "sha256": "ecf52ae8212ae2700bf5f68a14092bcbe3813051ca34a75fe0791e5e9c2649aa"
+  "sha256": "9debcdc364ce96bdb32fc3028de9c58ed5f9bed5bbbd42f0f5a88eaf6d999f12"
 }
