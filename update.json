@@ -1,10 +1,10 @@
 {
-  "versionCode": 47,
-  "versionName": "47.0",
-  "notes": "\u6570\u636e\u540c\u6b65\uff1a\u7c98\u8d34\u5927\u6bb5\u5907\u4efd\u5185\u5bb9\u65f6\u8f93\u5165\u6846\u4e0d\u518d\u6491\u6ee1\u6574\u5c4f\uff0c\u56fa\u5b9a\u9ad8\u5ea6\u3001\u5185\u5bb9\u5728\u6846\u5185\u81ea\u5df1\u6eda",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v47.apk",
-  "apk2": "https://ghproxy.net/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v47.apk",
-  "apk3": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v47.apk",
-  "size": 469972,
-  "sha256": "2cc46b6d6b21ae5c6f11f4b84e879e77eb700b1e9b0c23771e356b12697323eb"
+  "versionCode": 48,
+  "versionName": "48.0",
+  "notes": "\u62fc\u8f66\uff1a\u8865\u7f3a\u5931\u5bc6\u94a5\u56fa\u5b9a\u68c0\u67e510\u4e2a\u5fc5\u9700\u5206\u7ec4\u5e76\u4fdd\u7559\u5df2\u6709\u5bc6\u94a5\uff0c\u8d26\u53f7\u8c03\u5ea6\u652f\u6301\u8f6e\u8be2/\u7528\u5b8c\u518d\u6362",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v48.apk",
+  "apk2": "https://ghproxy.net/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v48.apk",
+  "apk3": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v48.apk",
+  "size": 474068,
+  "sha256": "68cced7dc177ebef5cf1a82435dadff050126bff23b677807e36fb82a4df9c2d"
 }
