@@ -1,10 +1,10 @@
 {
-  "versionCode": 49,
-  "versionName": "49.0",
-  "notes": "\u62fc\u8f66\u8865\u5bc6\u94a5\uff1a\u5e38\u9a7b\u8fdb\u5ea6\u7a97\u53e3+\u9010\u6761\u539f\u56e0\uff0c\u5148\u626b\u672c\u5730\u518d\u8865\uff08\u5feb\u5f88\u591a\uff09\uff0c\u4f1a\u8bdd\u8fc7\u671f\u81ea\u52a8\u91cd\u767b\uff0c\u4ee4\u724c\u4f4d\u6ee1\u53ef\u81ea\u52a8\u817e\u632a",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v49.apk",
-  "apk2": "https://ghproxy.net/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v49.apk",
-  "apk3": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v49.apk",
-  "size": 482260,
-  "sha256": "4caa5f7aad0894e6207d21dfc1e787c1655d89680683007046ec47418f2380dc"
+  "versionCode": 50,
+  "versionName": "50.0",
+  "notes": "微云：签到/订阅不再自动固定账号（以手动固定为准），额度用完自动换号；支持并发（多软件同时用，自动分散到不同账号，可调上限）。主题设置收进独立子页面。密钥查询记录页可手动添加手机号。移除拼车模块。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v50.apk",
+  "apk2": "https://ghproxy.net/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v50.apk",
+  "apk3": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v50.apk",
+  "size": 437211,
+  "sha256": "2146e0bd842d2513a39016d7c671749545d72705d72956a1e86d9f87cc7d4058"
 }
