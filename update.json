@@ -1,10 +1,10 @@
 {
-  "versionCode": 59,
-  "versionName": "59.0",
-  "notes": "修复微云福利「已过验证但仍被拦截」：Cloudflare 的放行凭证除 IP 和 UA 外还绑定 TLS 指纹，验证窗用的是 WebView（真 Chromium，HTTP/2），而 App 发请求用 HttpURLConnection（HTTP/1.1，指纹不同），所以凭证对原生请求无效。本版让原生请求带上 WebView 的全部 cookie（此前只带 cf_clearance，漏了 __cf_bm 等配套项），并在验证成功后自动做一次两侧对照核验，把 WebView 侧与原生侧的 HTTP 结果、cookie 名称、结论写进运行日志（模块「微云福利」事件「CF核验」），可一键复制发给开发者以确诊是否为指纹问题。",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v59.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v59.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v59.apk",
-  "size": 449497,
-  "sha256": "76823066f7527df8fbdcf7c0ab01685b619cfea6ca854551fd3f5e6c0f235837"
+  "versionCode": 60,
+  "versionName": "60.0",
+  "notes": "修正 v59 的两处问题：① 核验日志的字段名会被运行日志的脱敏规则吃掉——原写法以 cookie= 开头，而脱敏正则贪婪匹配到行尾，导致最关键的「结论」被整段替换成 <REDACTED>，本版改为 CF项= 并把结论前置；② 「已过验证但仍被拦截」的提示仍沿用 v58 那句错误猜测（说你可能切换了网络），现改为实测确诊的真实原因（人机凭证绑定 TLS 指纹，验证窗用浏览器内核而 App 用另一套网络栈，指纹不同故不被认可），并指明去「我的 → 诊断日志」取「CF核验」记录。功能同 v59：原生请求带上 WebView 的全部 CF cookie（此前只带 cf_clearance，漏了 __cf_bm 等配套项），并在验证后自动做两侧对照核验。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v60.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v60.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v60.apk",
+  "size": 449499,
+  "sha256": "8293f7b60d7b764818a2ac12985c1a930597aebc7f0fad5005e28e0268898ba3"
 }
