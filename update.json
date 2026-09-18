@@ -1,10 +1,10 @@
 {
-  "versionCode": 57,
-  "versionName": "57.0",
-  "notes": "修复「检查更新」一直失败的根因：读取响应的 readAll() 把 close() 错放在循环内（反编译残留），第一轮读完就关流，Android 随即报 closed，导致所有源全部失败。同时改为直连优先（隧道仅作兜底，避免坏 socket 被连接池复用）、禁用连接复用，并按实测速度重排更新源、移除连不上的 ghproxy.cc，修正旧源列表无法自动升级的问题。",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v57.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v57.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v57.apk",
-  "size": 445402,
-  "sha256": "7d2543432dd196260a5d540edc46eee6e645628bf34976a6c25cc81398334665"
+  "versionCode": 58,
+  "versionName": "58.0",
+  "notes": "修复微云人机验证「窗口一闪而过、验证完仍被拦截」：过验证时轮询 WebView cookie，会把上一次残留的失效 cf_clearance 当成新结果，半秒内就关窗并用旧凭证重试，必然再次 403。现在清除凭证时同步擦除 WebView cookie 罐（改为 post 到主线程执行，避免后台线程静默失败），并以「读到的值必须不同于旧值」为准；等待超 10 秒后才允许用页面标题作兜底判据，避免极端情况下白等到超时。同时把失败提示改为按实际情况判断（隧道开启导致出口 IP 不一致 / 网络切换），验证窗口内若检测到微云隧道开着会提前警告。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v58.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v58.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v58.apk",
+  "size": 445400,
+  "sha256": "c2c050ccbea3daf0da7444bccbdb0944d8081b960fb916372546d8f0ad78498a"
 }
