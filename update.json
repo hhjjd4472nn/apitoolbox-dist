@@ -1,10 +1,10 @@
 {
-  "versionCode": 58,
-  "versionName": "58.0",
-  "notes": "修复微云人机验证「窗口一闪而过、验证完仍被拦截」：过验证时轮询 WebView cookie，会把上一次残留的失效 cf_clearance 当成新结果，半秒内就关窗并用旧凭证重试，必然再次 403。现在清除凭证时同步擦除 WebView cookie 罐（改为 post 到主线程执行，避免后台线程静默失败），并以「读到的值必须不同于旧值」为准；等待超 10 秒后才允许用页面标题作兜底判据，避免极端情况下白等到超时。同时把失败提示改为按实际情况判断（隧道开启导致出口 IP 不一致 / 网络切换），验证窗口内若检测到微云隧道开着会提前警告。",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v58.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v58.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v58.apk",
-  "size": 445400,
-  "sha256": "c2c050ccbea3daf0da7444bccbdb0944d8081b960fb916372546d8f0ad78498a"
+  "versionCode": 59,
+  "versionName": "59.0",
+  "notes": "修复微云福利「已过验证但仍被拦截」：Cloudflare 的放行凭证除 IP 和 UA 外还绑定 TLS 指纹，验证窗用的是 WebView（真 Chromium，HTTP/2），而 App 发请求用 HttpURLConnection（HTTP/1.1，指纹不同），所以凭证对原生请求无效。本版让原生请求带上 WebView 的全部 cookie（此前只带 cf_clearance，漏了 __cf_bm 等配套项），并在验证成功后自动做一次两侧对照核验，把 WebView 侧与原生侧的 HTTP 结果、cookie 名称、结论写进运行日志（模块「微云福利」事件「CF核验」），可一键复制发给开发者以确诊是否为指纹问题。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v59.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v59.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v59.apk",
+  "size": 449497,
+  "sha256": "76823066f7527df8fbdcf7c0ab01685b619cfea6ca854551fd3f5e6c0f235837"
 }
