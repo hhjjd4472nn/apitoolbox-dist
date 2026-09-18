@@ -1,10 +1,10 @@
 {
-  "versionCode": 51,
-  "versionName": "51.0",
-  "notes": "修复小泰/小白/微云三个模块「刷新额度」「一键签到」点了不动、进度一直停在 0/N、要等很久才出结果的问题。现在四个模块进度实时显示（如 刷新 3/10）、跑完立即弹「成功 X 失败 Y」。",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v51.apk",
-  "apk2": "https://ghproxy.net/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v51.apk",
-  "apk3": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v51.apk",
-  "size": 437209,
-  "sha256": "4242825559413c4593612fd7e473f0ac3f8c9ec026026d0da16c6a0430d089f3"
+  "versionCode": 52,
+  "versionName": "52.0",
+  "notes": "修复检查更新失败：内置隧道连不上时自动回退系统网络重试，检查更新与下载都不再被隧道卡死；错误提示区分「隧道无可用节点／隧道与直连均失败／走系统网络」并给出可操作指引。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v52.apk",
+  "apk2": "https://ghproxy.net/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v52.apk",
+  "apk3": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v52.apk",
+  "size": 437208,
+  "sha256": "0a312614101097b96fcc70e0757dbb98017987e89515a5f8231e5b828ab1dcc8"
 }
