@@ -1,10 +1,10 @@
 {
-  "versionCode": 53,
-  "versionName": "53.0",
-  "notes": "修复检查更新失败：① 新增 6 个国内可直连镜像（jsdelivr×3、ghproxy.net、gh-proxy.com、ghfast.top）并排在最前，直连不走隧道，避免机场节点冷却把可用镜像一起拖死；② GitHub 源才挂隧道，失败自动回退直连；③ 弹窗改为逐个地址显示结果与具体错误，不再只显示最后一个源；④ 补全 closed 等无信息异常文案；⑤ 旧默认源自动迁移到新源列表。",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v53.apk",
-  "apk2": "https://ghproxy.net/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v53.apk",
-  "apk3": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v53.apk",
-  "size": 437211,
-  "sha256": "5149b2cbe8f9fed16f6e1bb744ac83f4c454caa6313d209a7cdc0b68538a6577"
+  "versionCode": 54,
+  "versionName": "54.0",
+  "notes": "修复微云福利/签到全线 403：站点已给签到与福利接口加上 Cloudflare 人机挑战（cf-mitigated: challenge），原生请求到不了应用层。新增 WebView 自动过验证并缓存 cf_clearance，签到、翻牌、看广告、答题、抽奖、批量扫描、后台自动翻牌命中挑战时自动弹一次验证窗、通过后重试；额度刷新/登录接口未被挑战故不受影响。另含 v53 的检查更新改进：国内镜像直连优先、逐源显示具体错误、旧更新源自动迁移。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v54.apk",
+  "apk2": "https://ghproxy.net/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v54.apk",
+  "apk3": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v54.apk",
+  "size": 445400,
+  "sha256": "4a28fa522e48f71aee6db52cad57d52bc139b470bd04e5016c953a65cf6a3011"
 }
