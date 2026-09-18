@@ -1,10 +1,10 @@
 {
-  "versionCode": 50,
-  "versionName": "50.0",
-  "notes": "微云：签到/订阅不再自动固定账号（以手动固定为准），额度用完自动换号；支持并发（多软件同时用，自动分散到不同账号，可调上限）。主题设置收进独立子页面。密钥查询记录页可手动添加手机号。移除拼车模块。",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v50.apk",
-  "apk2": "https://ghproxy.net/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v50.apk",
-  "apk3": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v50.apk",
-  "size": 437211,
-  "sha256": "2146e0bd842d2513a39016d7c671749545d72705d72956a1e86d9f87cc7d4058"
+  "versionCode": 51,
+  "versionName": "51.0",
+  "notes": "修复小泰/小白/微云三个模块「刷新额度」「一键签到」点了不动、进度一直停在 0/N、要等很久才出结果的问题。现在四个模块进度实时显示（如 刷新 3/10）、跑完立即弹「成功 X 失败 Y」。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v51.apk",
+  "apk2": "https://ghproxy.net/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v51.apk",
+  "apk3": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v51.apk",
+  "size": 437209,
+  "sha256": "4242825559413c4593612fd7e473f0ac3f8c9ec026026d0da16c6a0430d089f3"
 }
