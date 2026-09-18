@@ -1,10 +1,10 @@
 {
-  "versionCode": 52,
-  "versionName": "52.0",
-  "notes": "修复检查更新失败：内置隧道连不上时自动回退系统网络重试，检查更新与下载都不再被隧道卡死；错误提示区分「隧道无可用节点／隧道与直连均失败／走系统网络」并给出可操作指引。",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v52.apk",
-  "apk2": "https://ghproxy.net/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v52.apk",
-  "apk3": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v52.apk",
-  "size": 437208,
-  "sha256": "0a312614101097b96fcc70e0757dbb98017987e89515a5f8231e5b828ab1dcc8"
+  "versionCode": 53,
+  "versionName": "53.0",
+  "notes": "修复检查更新失败：① 新增 6 个国内可直连镜像（jsdelivr×3、ghproxy.net、gh-proxy.com、ghfast.top）并排在最前，直连不走隧道，避免机场节点冷却把可用镜像一起拖死；② GitHub 源才挂隧道，失败自动回退直连；③ 弹窗改为逐个地址显示结果与具体错误，不再只显示最后一个源；④ 补全 closed 等无信息异常文案；⑤ 旧默认源自动迁移到新源列表。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v53.apk",
+  "apk2": "https://ghproxy.net/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v53.apk",
+  "apk3": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v53.apk",
+  "size": 437211,
+  "sha256": "5149b2cbe8f9fed16f6e1bb744ac83f4c454caa6313d209a7cdc0b68538a6577"
 }
