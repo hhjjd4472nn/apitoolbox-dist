@@ -1,10 +1,10 @@
 {
-  "versionCode": 55,
-  "versionName": "55.0",
-  "notes": "新增「网络诊断」工具：检查更新失败时点一下，逐层测 DNS 解析(含 IP，可判断污染)/TCP 443 连通性/TLS+HTTP，直连与内置隧道各测一遍，并报告本地版本、隧道开关、可用节点数；结果可一键复制发给开发者。入口在「我的」页面和检查更新失败弹窗。已对照 v47 原版确认检查更新代码无回归，差异在网络环境，故改为让 App 自证以精确定位。",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v55.apk",
-  "apk2": "https://ghproxy.net/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v55.apk",
-  "apk3": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v55.apk",
-  "size": 445401,
-  "sha256": "3ac9ec958d2f0fc32f52a559aa4e268d5c978c06b80c313dc2b12cf0e49f2cd2"
+  "versionCode": 57,
+  "versionName": "57.0",
+  "notes": "修复「检查更新」一直失败的根因：读取响应的 readAll() 把 close() 错放在循环内（反编译残留），第一轮读完就关流，Android 随即报 closed，导致所有源全部失败。同时改为直连优先（隧道仅作兜底，避免坏 socket 被连接池复用）、禁用连接复用，并按实测速度重排更新源、移除连不上的 ghproxy.cc，修正旧源列表无法自动升级的问题。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v57.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v57.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v57.apk",
+  "size": 445402,
+  "sha256": "7d2543432dd196260a5d540edc46eee6e645628bf34976a6c25cc81398334665"
 }
