@@ -1,10 +1,10 @@
 {
-  "versionCode": 62,
-  "versionName": "62.0",
-  "notes": "修复自动翻牌间隔较长时（如 1 小时）偶发不翻牌的问题：① 后台自动过验证的超时从 40 秒放宽到 90 秒——实测成功两次分别耗时 18 秒和 15 秒，原来余量太紧，Cloudflare 挑战稍慢就超时；② 第一次没过会隔 20 秒自动再试一次，不再只赌一次；③ 若仍未过，4 分钟后再自动重排一轮（原来要干等你设的间隔），多给几次机会，不必非得去点通知；④ 补上失败日志——以前失败原因没写进运行日志，现在「微云福利 | 后台验证失败」会记录确切原因、耗时、以及当时页面标题和网址，便于确诊。建议把自动翻牌间隔设在 10~20 分钟：间隔越短，凭证越不容易过期，根本不需要重新验证，最稳。",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v62.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v62.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v62.apk",
-  "size": 453594,
-  "sha256": "925355d8f3892391a36fa064eba56bf9997478d935965666109c23aaf995e6ce"
+  "versionCode": 63,
+  "versionName": "63.0",
+  "notes": "修复前台手动操作时「提示已过验证、却仍被 403 拦截」的问题，并纠正那句误导性的错误提示。\n\n根因：验证前要先删掉上一份失效凭证，但定向删除有时会静默失败；v62 没有删后复查，加上一个「等待超过 10 秒就看页面标题放行」的兜底，结果把那份失效旧凭证当成了「新验证成功」，关窗报成功，重试自然还是 403。你日志里「WebView侧=403；原生侧=403(挑战)」两侧同时被拦，正说明这份凭证本身无效——和提示里说的 TLS 指纹无关（那个说法此前已被证伪，是我之前回退版本时把已修好的代码一起丢掉了，抱歉）。\n\n修复：① 严格只认凭证值发生变化才算通过，宁可等到超时也不放行无效旧值；② 定向删除失败就清空整个 cookie 罐（登录态另存，不会掉登录）；③ 验证窗探针补回 cf-mitigated 响应头，让「403」能区分是边缘挑战还是应用层；④ 核验日志补充耗时、是否残留旧值、判定成功时的页面标题，以后再出问题一行日志即可确诊；⑤ 删掉 TLS 指纹那句错误提示与注释。\n\n后台自动翻牌的离屏验证不受影响（那条路径本来就是正确的实现），v62 的 90 秒超时、失败重试、4 分钟短间隔重排全部保留。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v63.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v63.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v63.apk",
+  "size": 453595,
+  "sha256": "db17a9a2d37f3fc39bfa6515a647fe1f8ccc65a28b4f859da7be6007ddfcbe33"
 }
