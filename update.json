@@ -1,10 +1,10 @@
 {
-  "versionCode": 61,
-  "versionName": "61.0",
-  "notes": "微云自动翻牌现在能真正无人值守：后台定时翻牌遇到 Cloudflare 人机验证（凭证 20~30 分钟过期或切网失效）时，会用离屏浏览器自动重过验证，过了就继续本轮翻牌，不再需要你手动去前台刷新。万一离屏自动过不了，会发一条「需要过验证」通知（10 分钟内只发一条），你点一下就弹出验证窗、过完自动翻牌立即恢复。前台手动签到/翻牌的自动弹验证不受影响，和以前一样。",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v61.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v61.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v61.apk",
-  "size": 453593,
-  "sha256": "76b5218027e025465353b84c693686031b6cd495643e4b72bb555d14bbc6372a"
+  "versionCode": 62,
+  "versionName": "62.0",
+  "notes": "修复自动翻牌间隔较长时（如 1 小时）偶发不翻牌的问题：① 后台自动过验证的超时从 40 秒放宽到 90 秒——实测成功两次分别耗时 18 秒和 15 秒，原来余量太紧，Cloudflare 挑战稍慢就超时；② 第一次没过会隔 20 秒自动再试一次，不再只赌一次；③ 若仍未过，4 分钟后再自动重排一轮（原来要干等你设的间隔），多给几次机会，不必非得去点通知；④ 补上失败日志——以前失败原因没写进运行日志，现在「微云福利 | 后台验证失败」会记录确切原因、耗时、以及当时页面标题和网址，便于确诊。建议把自动翻牌间隔设在 10~20 分钟：间隔越短，凭证越不容易过期，根本不需要重新验证，最稳。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v62.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v62.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v62.apk",
+  "size": 453594,
+  "sha256": "925355d8f3892391a36fa064eba56bf9997478d935965666109c23aaf995e6ce"
 }
