@@ -1,10 +1,10 @@
 {
-  "versionCode": 60,
-  "versionName": "60.0",
-  "notes": "修正 v59 的两处问题：① 核验日志的字段名会被运行日志的脱敏规则吃掉——原写法以 cookie= 开头，而脱敏正则贪婪匹配到行尾，导致最关键的「结论」被整段替换成 <REDACTED>，本版改为 CF项= 并把结论前置；② 「已过验证但仍被拦截」的提示仍沿用 v58 那句错误猜测（说你可能切换了网络），现改为实测确诊的真实原因（人机凭证绑定 TLS 指纹，验证窗用浏览器内核而 App 用另一套网络栈，指纹不同故不被认可），并指明去「我的 → 诊断日志」取「CF核验」记录。功能同 v59：原生请求带上 WebView 的全部 CF cookie（此前只带 cf_clearance，漏了 __cf_bm 等配套项），并在验证后自动做两侧对照核验。",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v60.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v60.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v60.apk",
-  "size": 449499,
-  "sha256": "8293f7b60d7b764818a2ac12985c1a930597aebc7f0fad5005e28e0268898ba3"
+  "versionCode": 61,
+  "versionName": "61.0",
+  "notes": "微云自动翻牌现在能真正无人值守：后台定时翻牌遇到 Cloudflare 人机验证（凭证 20~30 分钟过期或切网失效）时，会用离屏浏览器自动重过验证，过了就继续本轮翻牌，不再需要你手动去前台刷新。万一离屏自动过不了，会发一条「需要过验证」通知（10 分钟内只发一条），你点一下就弹出验证窗、过完自动翻牌立即恢复。前台手动签到/翻牌的自动弹验证不受影响，和以前一样。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v61.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v61.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v61.apk",
+  "size": 453593,
+  "sha256": "76b5218027e025465353b84c693686031b6cd495643e4b72bb555d14bbc6372a"
 }
