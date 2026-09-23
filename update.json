@@ -1,10 +1,10 @@
 {
-  "versionCode": 64,
-  "versionName": "64.0",
-  "notes": "修复「密钥查询」模块点不开（一点就自动跳回其它模块）的问题。\n\n原因：上个恢复版打包时用错了资源编号对照表，密钥查询界面的 77 个控件编号全部错位，界面一加载就崩溃、被系统弹回。本版已纠正，并在打包流程里加了自动校验，杜绝再犯。\n\n其余功能与之前完全一致，可放心覆盖更新（数据不丢）。",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v64.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v64.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v64.apk",
-  "size": 449492,
-  "sha256": "9c056ae6e5763c9eb3405be14aefcf8c6ca80102fd1335cad29b1033aa2ef9be"
+  "versionCode": 65,
+  "versionName": "65.0",
+  "notes": "本版修复「检查更新后点下载没反应」：原版检查更新任务有三处 busy 释放（同为 smali .line 234，是 try/finally 的 finally 被复制到每个出口），恢复版漏掉了「检查成功」那个出口，导致检查到新版本后 busy 永久为 true，点下载被 download() 的 busy.compareAndSet 静默拦下（无进度框、无提示），只有杀进程重进才恢复。已按 smali 还原为单一 try/catch/finally。\n\n另：本版内置临时崩溃诊断（仅记录到「我的 → 运行日志」旁边的弹窗），用于定位「密钥查询」模块闪退的真实堆栈，定位后会移除，不影响原有功能。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v65.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v65.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v65.apk",
+  "size": 453588,
+  "sha256": "0290bd71eb77eca4be28844bfee811efece5d90352272abc64b4619ad6aab295"
 }
