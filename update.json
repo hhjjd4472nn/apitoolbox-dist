@@ -1,10 +1,10 @@
 {
-  "versionCode": 63,
-  "versionName": "63.0",
-  "notes": "修复前台手动操作时「提示已过验证、却仍被 403 拦截」的问题，并纠正那句误导性的错误提示。\n\n根因：验证前要先删掉上一份失效凭证，但定向删除有时会静默失败；v62 没有删后复查，加上一个「等待超过 10 秒就看页面标题放行」的兜底，结果把那份失效旧凭证当成了「新验证成功」，关窗报成功，重试自然还是 403。你日志里「WebView侧=403；原生侧=403(挑战)」两侧同时被拦，正说明这份凭证本身无效——和提示里说的 TLS 指纹无关（那个说法此前已被证伪，是我之前回退版本时把已修好的代码一起丢掉了，抱歉）。\n\n修复：① 严格只认凭证值发生变化才算通过，宁可等到超时也不放行无效旧值；② 定向删除失败就清空整个 cookie 罐（登录态另存，不会掉登录）；③ 验证窗探针补回 cf-mitigated 响应头，让「403」能区分是边缘挑战还是应用层；④ 核验日志补充耗时、是否残留旧值、判定成功时的页面标题，以后再出问题一行日志即可确诊；⑤ 删掉 TLS 指纹那句错误提示与注释。\n\n后台自动翻牌的离屏验证不受影响（那条路径本来就是正确的实现），v62 的 90 秒超时、失败重试、4 分钟短间隔重排全部保留。",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v63.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v63.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v63.apk",
-  "size": 453595,
-  "sha256": "db17a9a2d37f3fc39bfa6515a647fe1f8ccc65a28b4f859da7be6007ddfcbe33"
+  "versionCode": 64,
+  "versionName": "64.0",
+  "notes": "修复「密钥查询」模块点不开（一点就自动跳回其它模块）的问题。\n\n原因：上个恢复版打包时用错了资源编号对照表，密钥查询界面的 77 个控件编号全部错位，界面一加载就崩溃、被系统弹回。本版已纠正，并在打包流程里加了自动校验，杜绝再犯。\n\n其余功能与之前完全一致，可放心覆盖更新（数据不丢）。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v64.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v64.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v64.apk",
+  "size": 449492,
+  "sha256": "9c056ae6e5763c9eb3405be14aefcf8c6ca80102fd1335cad29b1033aa2ef9be"
 }
