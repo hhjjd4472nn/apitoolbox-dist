@@ -1,10 +1,10 @@
 {
-  "versionCode": 66,
-  "versionName": "66.0",
-  "notes": "本版修复「密钥查询」模块一进入就闪退。\n\n根因（有 smali 铁证）：InvalidPhoneStore 原版构造函数的指令顺序是\n  getSharedPreferences → 赋值 prefs → 调用 load() → 赋值 records\n但反编译工具把它误还原成了字段初始化器 `private final List records = load();`\nJava 的字段初始化器在构造函数体【之前】执行，于是 load() 里读 this.prefs 时\nprefs 还是 null → NullPointerException → MainActivity.onCreate:146 崩溃。\n已按 smali 还原为构造体内顺序赋值（prefs 先、records 后）。\n\n同时新增「构造函数初始化时序守卫」，以能正常工作的原版为基准，扫描全部 6 个\n模块 606 个类，确认此类顺序错误仅此一处（自验证：该守卫能准确报出修复前的\n已知缺陷，证明其可信）。",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v66.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v66.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v66.apk",
+  "versionCode": 67,
+  "versionName": "67.0",
+  "notes": "「肖恩」模块换用可直连的新网址 https://go.toter.me（原 free.supxh.xin 在大陆 DNS 被污染，需梯子才能访问）。已逐个实测新站点的 8 个接口路径与旧站完全一致，登录、刷新额度、签到、消息领取、中断补偿均恢复正常；本地代理上游 api.supxh.xin 仍然可用，未改动。\n\n另：本版仍保留临时崩溃诊断（CrashGuard），确认稳定后将在后续版本移除。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v67.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v67.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v67.apk",
   "size": 453588,
-  "sha256": "4f49f35deca785094e876c13d9f9e8378944b2b07959ffe295c765403dd160dc"
+  "sha256": "4f25f68b6c0d13fa065ef92a4aaaeb58a86dd758dac81687844f49c810b7b614"
 }
