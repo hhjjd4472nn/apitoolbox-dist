@@ -1,10 +1,10 @@
 {
-  "versionCode": 68,
-  "versionName": "68.0",
-  "notes": "新增「反代」模块（顶部切换条第 5 格）：\n把 ObsidianArc 网页聊天（ai.onyxaxis.org）转换成 OpenAI 兼容 API。\n· 本机服务 http://127.0.0.1:9196/v1，客户端无感知接入（Claude Code / Cherry Studio 等）\n· 支持工具调用（tool_calls）：模型输出协议标签，代理实时转标准格式\n· 多账号 cookie 池：WebView 登录一次长期用，额度用尽自动换号，冷却结束自动回归\n· 账号池状态持久化：限流冷却跨重启存活，不会重复撞刚被限流的号",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v68.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v68.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v68.apk",
-  "size": 474068,
-  "sha256": "fd2d868110ef96000055da28d24a0b3293720e43097408abcbc69e373ee90dc0"
+  "versionCode": 69,
+  "versionName": "69.0",
+  "notes": "反代模块修复 + 重做界面：\n· 修复登录成功后返回崩溃（BadTokenException）：cookie 保存期间 Activity 已销毁时不再弹窗，改用存活守卫 + 防重复保存\n· 反代页面重做成与其他四个模块同款风格：品牌渐变标题、5 格模块切换条、ONLINE/OFFLINE 状态胶囊、控制/账号双 tab、账号卡片\n· 独立主题开关（深浅色跟随，与\"我的\"页解耦）\n· 账号卡片支持复制 cookie / 刷新额度 / 重新登录 / 启停 / 删除",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v69.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v69.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v69.apk",
+  "size": 478164,
+  "sha256": "8a968fafda4d3e4dda698cf8257a5bf13c06f2e5485a9018685f1a1c6fa50ce2"
 }
