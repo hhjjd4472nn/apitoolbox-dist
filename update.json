@@ -1,10 +1,10 @@
 {
-  "versionCode": 69,
-  "versionName": "69.0",
-  "notes": "反代模块修复 + 重做界面：\n· 修复登录成功后返回崩溃（BadTokenException）：cookie 保存期间 Activity 已销毁时不再弹窗，改用存活守卫 + 防重复保存\n· 反代页面重做成与其他四个模块同款风格：品牌渐变标题、5 格模块切换条、ONLINE/OFFLINE 状态胶囊、控制/账号双 tab、账号卡片\n· 独立主题开关（深浅色跟随，与\"我的\"页解耦）\n· 账号卡片支持复制 cookie / 刷新额度 / 重新登录 / 启停 / 删除",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v69.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v69.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v69.apk",
+  "versionCode": 70,
+  "versionName": "70.0",
+  "notes": "反代修复：\n· 模型列表改为显示站点模型名，不再显示内部 ULID；旧的 ULID 配置仍可直接调用\n· 修复账号池并发槽泄漏：一次成功请求后不会再把账号永久占住\n· 额度冷却状态现在会保存，重启应用后不会立刻重撞刚限流的账号\n· 工具调用：多个工具的序号分开；限流/额度尽会正确切号；常见危险工具名做了安全化",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v70.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v70.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v70.apk",
   "size": 478164,
-  "sha256": "8a968fafda4d3e4dda698cf8257a5bf13c06f2e5485a9018685f1a1c6fa50ce2"
+  "sha256": "ad052c97210b58f6fc23ea6d43ac3c5b8d7b5830dd496e12e4599851c078c87b"
 }
