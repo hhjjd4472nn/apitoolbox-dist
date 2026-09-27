@@ -1,10 +1,10 @@
 {
-  "versionCode": 70,
-  "versionName": "70.0",
-  "notes": "反代修复：\n· 模型列表改为显示站点模型名，不再显示内部 ULID；旧的 ULID 配置仍可直接调用\n· 修复账号池并发槽泄漏：一次成功请求后不会再把账号永久占住\n· 额度冷却状态现在会保存，重启应用后不会立刻重撞刚限流的账号\n· 工具调用：多个工具的序号分开；限流/额度尽会正确切号；常见危险工具名做了安全化",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v70.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v70.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v70.apk",
-  "size": 478164,
-  "sha256": "ad052c97210b58f6fc23ea6d43ac3c5b8d7b5830dd496e12e4599851c078c87b"
+  "versionCode": 71,
+  "versionName": "71.0",
+  "notes": "反代修复（实测验证）：\n· 响应里 model 字段改为回显你请求的模型名（之前回显内部 ULID，部分客户端因不匹配而丢弃响应、表现为\"一直没有回复\"）\n· 支持 chunked 请求体（部分客户端 POST 不带 Content-Length，之前一律报 messages required）\n· 修复「我的」页点开跳成反代页：反代与「我的」共用同一 Activity，旧实例被搬回前台导致模式错乱",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v71.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v71.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v71.apk",
+  "size": 482260,
+  "sha256": "640f1cd845326276bb035179b3b991705407558987546a38210dadd41a2326b2"
 }
