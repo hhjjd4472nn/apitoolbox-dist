@@ -1,10 +1,10 @@
 {
-  "versionCode": 75,
-  "versionName": "75.0",
-  "notes": "星轴模块 v75（4 个修复 + 1 个新功能）\n\n■ 1. 修好「添加账号后没有自动清除登录态」\n之前添加完一个账号想加下一个，WebView 仍显示上一个账号已登录，必须手动去网站退出。\n根因是 clearSessionCookie 实现错误：只设置保留的 cookie，没有显式删除 obsidian_session。\n现在用 Max-Age=0 显式删除 session cookie，下次添加账号直接显示干净的登录表单。\n\n■ 2. 删除登录后自动跳转到 /keys 页面\n之前登录成功后自动跳转密钥页太慢，你宁愿手动导航。\n现在改为弹窗提示「登录成功，请手动导航到密钥页创建 API Key」。\n\n■ 3. 精简使用说明\n控制页的使用说明从大段技术细节精简为 3 行核心信息：\n· 客户端配置（地址/密钥/模型名）\n· 添加账号方式\n· 服务常驻+磁贴启停\n\n■ 4. 新增后台自动续期（实验性）\n在 RevProxyServer 中添加 keepalive 守护线程，每 6 小时自动探活一次。\n如果网站用「空闲超时」策略（大多数网站），定期访问能延长 session 有效期，\n避免登录态因长时间不活动而过期。如果网站用「绝对超时」（固定 24h 强制过期），\n此线程无效但不造成任何副作用。\n只对 session 有效且有密钥的账号探活，不浪费请求。\n\n■ 5. 明确告知登录态失效的原因\n经实测验证：网站退出登录后 obsidian_session 立即失效（/api/auth/me 返回 401）。\n这是网站正常行为，不是 bug。API Key 是独立凭据，不受影响，转发仍然正常。\n要恢复额度查询，只需删除账号重新添加，或在网站上重新登录。",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v75.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v75.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v75.apk",
+  "versionCode": 76,
+  "versionName": "76.0",
+  "notes": "星轴模块 v76（彻底解决多账号添加冲突）\n\n■ 核心修复：打开添加账号页面前，自动清空 WebView 的旧 cookie\n之前为什么会出现「添加账号 B 必须先退出账号 A」？\n因为 WebView 打开时还残留着账号 A 的 cookie，网站直接显示账号 A 已登录。\n你为了看到登录表单去添加账号 B，不得不在网站上点击「退出登录」——\n这一点击，服务器就把账号 A 的会话彻底销毁了，导致账号 A 变成「登录态失效」。\n\n现在彻底修好了：\n· 点击「添加账号/建密钥」打开 WebView 时，系统会**在加载页面之前**自动清空 WebView 的登录态\n· 网页直接显示干净的登录表单，你不需要、也不应该在网站上点退出\n· 账号 A 的凭证已经在我们的数据库里安全存着，服务器上的会话依然有效\n· 账号 A 的后台续期线程（每 6 小时一次）会继续刷新，额度查询一直可用\n· 账号 A 和账号 B 各自独立，互不影响\n\n■ 配合 v75 的特性：\n· 后台自动续期守护线程（每 6 小时探活一次保活 session）\n· 不再自动跳转 /keys 页面，改为手动导航\n· 精简使用说明",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v76.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v76.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v76.apk",
   "size": 482260,
-  "sha256": "a2a03392d6ebdd3702b9cb32005c5f1ecd5a1bf7eb3bfd7d76a9ea1e70e01325"
+  "sha256": "ea29172d7a1b51ee89827107468350a9b50d6e3ad259f66323691982bec49094"
 }
