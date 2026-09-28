@@ -1,10 +1,10 @@
 {
-  "versionCode": 71,
-  "versionName": "71.0",
-  "notes": "反代修复（实测验证）：\n· 响应里 model 字段改为回显你请求的模型名（之前回显内部 ULID，部分客户端因不匹配而丢弃响应、表现为\"一直没有回复\"）\n· 支持 chunked 请求体（部分客户端 POST 不带 Content-Length，之前一律报 messages required）\n· 修复「我的」页点开跳成反代页：反代与「我的」共用同一 Activity，旧实例被搬回前台导致模式错乱",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v71.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v71.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v71.apk",
-  "size": 482260,
-  "sha256": "640f1cd845326276bb035179b3b991705407558987546a38210dadd41a2326b2"
+  "versionCode": 72,
+  "versionName": "72.0",
+  "notes": "反代模块重做为「星轴」（重大变更，请重新配置账号）\n\n■ 改了什么\n原来那个模块是「网页协议模拟」：把官方 API 请求翻译成网页聊天请求，再靠解析网页返回的文字猜工具调用。\n这条路本身能走通，但很脆 —— 工具调用是模拟的、system 提示词要绕道塞、响应格式得逐块自己拼，\n任何一处对不上，客户端就静默丢响应（就是你之前遇到的「一直没有回复」）。\n\n现在站点放开了官方 API 密钥的创建，所以整个模块改成直连官方 API：\n· 你的请求原样转发到站点的 /v1，站点的响应原样转回给你，中间不做任何改写\n· 工具调用变成官方原生的 function calling（不再是模拟的）—— Claude Code / Cherry Studio 这类\n  依赖工具的客户端现在可以正常用了\n· system 提示词、temperature、stream 等参数全部按标准走，不再需要绕道\n· 额外可用 /v1/messages（Anthropic 格式）和 /v1/responses，地址同样是 /v1 那一套\n\n因此网页模拟那套代码已经删掉了。它的实现思路和踩过的坑都归档保留，以后要给别的站点做反代可以拿来用。\n\n■ 你需要做什么（重要）\n1. 进「星轴」页，点「登录并建密钥」\n   登录后会自动打开密钥页并尝试创建；如果页面要你过人机验证，手动完成并点「创建」，\n   密钥一出现就会被自动抓到并保存（不用手抄）\n2. 万一自动没抓到，用「粘贴密钥」手动填 —— 注意站点的密钥只显示一次，\n   错过了只能在网页上删掉重建\n3. 客户端配置不用改：地址还是 http://127.0.0.1:9196/v1，密钥还是原来那个 sk-revproxy-… 开头的\n4. 模型名填什么？点「模型列表」直接看，可一键复制\n\n■ 顺带修好的\n· 之前加的账号（没有密钥的）现在会明确标成「待建密钥」，不再看着像能用却发不出请求\n· 账号卡显示密钥打码状态，能一眼认出哪个号还没配好\n· 切号判定改看 HTTP 状态码，并且区分「这个号额度用尽」（换号）和「上游供应商过载」\n  （换号也没用，短等一会儿自动重试）—— 之前这两种情况会混在一起处理\n\n■ 没变的\n切换条第 5 格的位置、切号策略（额度用尽再换）、代理只监听本机 127.0.0.1、\n服务随应用进程存活（杀掉应用就停）—— 都和其他四个模块一致。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v72.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v72.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v72.apk",
+  "size": 478164,
+  "sha256": "80c751b135a2a72ab01f376f9599a38cabf4caa1e2c4f0ef31783aac725f9aff"
 }
