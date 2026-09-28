@@ -1,10 +1,10 @@
 {
-  "versionCode": 76,
-  "versionName": "76.0",
-  "notes": "星轴模块 v76（彻底解决多账号添加冲突）\n\n■ 核心修复：打开添加账号页面前，自动清空 WebView 的旧 cookie\n之前为什么会出现「添加账号 B 必须先退出账号 A」？\n因为 WebView 打开时还残留着账号 A 的 cookie，网站直接显示账号 A 已登录。\n你为了看到登录表单去添加账号 B，不得不在网站上点击「退出登录」——\n这一点击，服务器就把账号 A 的会话彻底销毁了，导致账号 A 变成「登录态失效」。\n\n现在彻底修好了：\n· 点击「添加账号/建密钥」打开 WebView 时，系统会**在加载页面之前**自动清空 WebView 的登录态\n· 网页直接显示干净的登录表单，你不需要、也不应该在网站上点退出\n· 账号 A 的凭证已经在我们的数据库里安全存着，服务器上的会话依然有效\n· 账号 A 的后台续期线程（每 6 小时一次）会继续刷新，额度查询一直可用\n· 账号 A 和账号 B 各自独立，互不影响\n\n■ 配合 v75 的特性：\n· 后台自动续期守护线程（每 6 小时探活一次保活 session）\n· 不再自动跳转 /keys 页面，改为手动导航\n· 精简使用说明",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v76.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v76.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v76.apk",
-  "size": 482260,
-  "sha256": "ea29172d7a1b51ee89827107468350a9b50d6e3ad259f66323691982bec49094"
+  "versionCode": 77,
+  "versionName": "77.0",
+  "notes": "星轴模块 v77（额度对齐官网 + 刷新额度轮流登录）\n\n■ 额度显示改成和官网一模一样\n以前只显示一个笼统的数字，现在按官网口径分两行显示：\n· 5小时窗口：如「5小时 2258/5000 剩55% 1小时后重置」\n· 本周窗口：如「本周 2320/50000 剩95% 6天后重置」\n数值、剩余百分比、重置倒计时全部对齐网站的计算方式。通知栏只放 5 小时这一行（紧凑）。\n\n■ 刷新额度：失效账号自动轮流登录\n点「刷新额度」时：\n1）先把所有启用账号打一遍用量接口，登录态有效的直接出额度；\n2）登录态失效、且本机存过密码的账号，自动排队一个一个弹出登录页——\n   账号密码自动填好，人机验证过了会自动提交登录，抓到新登录态就立刻关窗，\n   接着弹下一个号。验证过不了时你手动点一下即可，点完继续。\n不用再一个个手动重登，一次点完全部刷新。\n\n■ 添加账号：改成填账号 + 密码\n点「登录并建密钥 / 重新登录」时，直接填账号和密码（密码只存本机，用于上面的自动登录），\n不再让你手填网站地址。登录成功后照旧自动抓登录态、抓密钥。\n\n■ 登录页自动填表更稳\n改用原生输入事件填表（兼容网站的前端框架），只在登录页填、不误碰密钥页的输入框；\n检测到验证通过且按钮可点才自动提交。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v77.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v77.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v77.apk",
+  "size": 486356,
+  "sha256": "3aa94d9051fc5c3ff7186a7d52fae291c8adf364d7e994a00d6dbcda4f916218"
 }
