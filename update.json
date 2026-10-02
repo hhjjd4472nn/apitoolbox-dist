@@ -1,10 +1,10 @@
 {
-  "versionCode": 77,
-  "versionName": "77.0",
-  "notes": "星轴模块 v77（额度对齐官网 + 刷新额度轮流登录）\n\n■ 额度显示改成和官网一模一样\n以前只显示一个笼统的数字，现在按官网口径分两行显示：\n· 5小时窗口：如「5小时 2258/5000 剩55% 1小时后重置」\n· 本周窗口：如「本周 2320/50000 剩95% 6天后重置」\n数值、剩余百分比、重置倒计时全部对齐网站的计算方式。通知栏只放 5 小时这一行（紧凑）。\n\n■ 刷新额度：失效账号自动轮流登录\n点「刷新额度」时：\n1）先把所有启用账号打一遍用量接口，登录态有效的直接出额度；\n2）登录态失效、且本机存过密码的账号，自动排队一个一个弹出登录页——\n   账号密码自动填好，人机验证过了会自动提交登录，抓到新登录态就立刻关窗，\n   接着弹下一个号。验证过不了时你手动点一下即可，点完继续。\n不用再一个个手动重登，一次点完全部刷新。\n\n■ 添加账号：改成填账号 + 密码\n点「登录并建密钥 / 重新登录」时，直接填账号和密码（密码只存本机，用于上面的自动登录），\n不再让你手填网站地址。登录成功后照旧自动抓登录态、抓密钥。\n\n■ 登录页自动填表更稳\n改用原生输入事件填表（兼容网站的前端框架），只在登录页填、不误碰密钥页的输入框；\n检测到验证通过且按钮可点才自动提交。",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v77.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v77.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v77.apk",
+  "versionCode": 78,
+  "versionName": "78.0",
+  "notes": "修复「维云」模块余额一直显示 0 的问题。站点在 2026-09 升级后，账号信息接口的返回里新增了「邀请奖励」对象，其中也带一个额度字段；旧版按文本顺序取第一个匹配到的值，正好抓到那个恒为 0 的邀请奖励额度，于是余额显示成 0，并被判定为「额度用完」而从统一代理的转发池里踢出去（表现为一键转发失效、删除重加账号也依然是 0）。本版改为按 JSON 结构精确读取账号顶层额度，实测已能正确显示真实余额。\n\n新增订阅账号识别：账号余额为 0 但仍有生效中的订阅时，不再被误判为额度用完，会继续留在转发池内参与轮询；此类账号卡片上会标注「订阅生效」，首页汇总行同时显示「订阅生效 N 个账号」。判定会一并校验订阅状态、到期时间与用量百分比（已用满的订阅不计入），仅在明确没有有效订阅时才停用该账号。\n\n其余模块（星轴、键池、白盒、路由器、肖恩等）未作任何改动。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v78.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v78.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v78.apk",
   "size": 486356,
-  "sha256": "3aa94d9051fc5c3ff7186a7d52fae291c8adf364d7e994a00d6dbcda4f916218"
+  "sha256": "c977099b3517e7944727ac93b7c03e8bccf756bc551f3f22aedce27c15712dba"
 }
