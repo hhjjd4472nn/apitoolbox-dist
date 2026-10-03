@@ -1,10 +1,10 @@
 {
-  "versionCode": 78,
-  "versionName": "78.0",
-  "notes": "修复「维云」模块余额一直显示 0 的问题。站点在 2026-09 升级后，账号信息接口的返回里新增了「邀请奖励」对象，其中也带一个额度字段；旧版按文本顺序取第一个匹配到的值，正好抓到那个恒为 0 的邀请奖励额度，于是余额显示成 0，并被判定为「额度用完」而从统一代理的转发池里踢出去（表现为一键转发失效、删除重加账号也依然是 0）。本版改为按 JSON 结构精确读取账号顶层额度，实测已能正确显示真实余额。\n\n新增订阅账号识别：账号余额为 0 但仍有生效中的订阅时，不再被误判为额度用完，会继续留在转发池内参与轮询；此类账号卡片上会标注「订阅生效」，首页汇总行同时显示「订阅生效 N 个账号」。判定会一并校验订阅状态、到期时间与用量百分比（已用满的订阅不计入），仅在明确没有有效订阅时才停用该账号。\n\n其余模块（星轴、键池、白盒、路由器、肖恩等）未作任何改动。",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v78.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v78.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v78.apk",
-  "size": 486356,
-  "sha256": "c977099b3517e7944727ac93b7c03e8bccf756bc551f3f22aedce27c15712dba"
+  "versionCode": 79,
+  "versionName": "79.0",
+  "notes": "「星轴」模块新增两个批量运维功能，都是对所有已启用的账号一次性执行，不用一个个点。\n\n一键签到：替所有账号完成当日签到，并顺带把已经达成、还没领的签到里程碑奖励一起领掉（例如连签满天数送的重置卡）。结果会逐个账号列出「已签到（连签 N 天）」以及领到了什么，还会提示下一个里程碑还差几天。今天已经签过的账号会如实显示「今日已签」，不会重复签，也不会报错。\n\n自动用重置卡：替所有账号打开站点的「自动使用重置卡」开关，打开后额度用尽时会自动消耗最快过期的重置卡继续请求。已经开着的账号不会重复提交，只回一句「已是开启状态」，并附带当前还剩几张重置卡。\n\n这两个功能都走后台静默完成，不需要像「刷新额度」那样弹出网页去过人机验证，点一下等结果即可。前提是账号里存了密码（登录并建密钥时填过的就会存）；如果某个账号的登录态已经过期且没存密码，它会单独提示你去点「重新登录」，不影响其他账号继续执行。\n\n账号之间是串行处理并带间隔的，不会同时对站点发起大量请求。登录时会沿用设备上原有的登录标识，因此不会触发站点的「新设备登录」邮件提醒。\n\n其余模块（维云、肖恩、小泰、小白等）未作任何改动，「刷新额度」的行为也保持原样。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v79.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v79.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v79.apk",
+  "size": 494548,
+  "sha256": "88569031f4bccd7ce873529af73b939f40809b2f493ee8fabb7881b7283ff3ea"
 }
