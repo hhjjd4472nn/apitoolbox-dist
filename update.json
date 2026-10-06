@@ -1,10 +1,10 @@
 {
-  "versionCode": 84,
-  "versionName": "84.0",
-  "notes": "v84：小刀（模块B）界面与模块A 完全统一\n\n- 配色对齐：小刀改用与模块A 内 5 个模块（肖恩/小泰/小白/维云/星轴）逐字节相同的「青+绿」标准配色，不再是独立的靛蓝色系\n- 骨架照抄母版：header 渐变卡 + 单行状态胶囊（ONLINE/OFFLINE/PAUSED）+ 摘要卡 + 等宽药丸按钮行 + 设置卡（左标题右胶囊 + 分隔线 + 开关行）+ 诊断卡 + 底部控制/账号双胶囊（账号带未签到红点数字）\n- 按钮分布对齐：启动代理(绿)/停止代理(灰)、账号管理/刷新状态/一键签到(主色) 三枚一行，与模块A 同款排布\n- 账号卡对齐母版：用户名 + 徽标（未签到/固定/使用中/密钥失效/禁用/余额低）+ 复制/选中链接 + 状态行 + 签到/禁用按钮 + 刷新/删除底行\n- 性能手法对齐：控件只创建一次，刷新只改文字（不再整页重建），列表按签名比对防抖\n- v83 修复全部保留：签到 Turnstile action 校验、防崩溃死循环、防任务拒绝守卫",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v84.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v84.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v84.apk",
+  "versionCode": 85,
+  "versionName": "85.0",
+  "notes": "v85 主要更新：\n- 修复添加账号后 API key 未创建/掩码 key 被丢弃的问题：登录、刷新分组、补建密钥都会为可用分组补齐完整 sk- key。\n- 控制页新增分组切换与「刷新分组」，每个账号按分组保存并使用对应 key。\n- 账号卡新增启用/禁用、固定使用/取消固定、签到三枚按钮；移除换号策略、固定账号设置、重启代理和健康检查入口。\n- 新增一键运气签到：输入每个账号的押注金额后串行签到，并保留普通签到与单账号运气签到。\n- 代理启停状态反馈延迟由 900ms 缩短至 300ms；账号管理菜单精简，呆瓜站入口移至控制页。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v85.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v85.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v85.apk",
   "size": 523220,
-  "sha256": "15e3caf292a2ce425012a5d84ec489a2b382ac58ab5cae52a24e464a26fc271c"
+  "sha256": "bf0faa0a52dbf050239614f4c190524709c48a54de678d6c57480c31965529c9"
 }
