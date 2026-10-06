@@ -1,10 +1,10 @@
 {
-  "versionCode": 85,
-  "versionName": "85.0",
-  "notes": "v85 主要更新：\n- 修复添加账号后 API key 未创建/掩码 key 被丢弃的问题：登录、刷新分组、补建密钥都会为可用分组补齐完整 sk- key。\n- 控制页新增分组切换与「刷新分组」，每个账号按分组保存并使用对应 key。\n- 账号卡新增启用/禁用、固定使用/取消固定、签到三枚按钮；移除换号策略、固定账号设置、重启代理和健康检查入口。\n- 新增一键运气签到：输入每个账号的押注金额后串行签到，并保留普通签到与单账号运气签到。\n- 代理启停状态反馈延迟由 900ms 缩短至 300ms；账号管理菜单精简，呆瓜站入口移至控制页。",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v85.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v85.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v85.apk",
+  "versionCode": 86,
+  "versionName": "86.0",
+  "notes": "v86 主要更新（v85 修复版）：\n- 修复「补建密钥」失败：分组列表里掩码 key 取不到明文时自动改走创建接口补建，不再静默丢分组；失败提示改为具体原因（登录过期/服务端未返回分组/接口报错），成功提示已补建的分组数。\n- 补建密钥时优先保留账号原分组选择（原分组仍可用则不跳组）。\n- 控制页「选择分组 / 刷新分组」按钮行间距与下方按钮行统一（消除 16dp 大缝）。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v86.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v86.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v86.apk",
   "size": 523220,
-  "sha256": "bf0faa0a52dbf050239614f4c190524709c48a54de678d6c57480c31965529c9"
+  "sha256": "f7f6384ceca03758269aee715eb0b125387940c61abd2afd69fdb67ef9be4414"
 }
