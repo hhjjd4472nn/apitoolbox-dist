@@ -1,10 +1,10 @@
 {
-  "versionCode": 86,
-  "versionName": "86.0",
-  "notes": "v86 主要更新（v85 修复版）：\n- 修复「补建密钥」失败：分组列表里掩码 key 取不到明文时自动改走创建接口补建，不再静默丢分组；失败提示改为具体原因（登录过期/服务端未返回分组/接口报错），成功提示已补建的分组数。\n- 补建密钥时优先保留账号原分组选择（原分组仍可用则不跳组）。\n- 控制页「选择分组 / 刷新分组」按钮行间距与下方按钮行统一（消除 16dp 大缝）。",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v86.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v86.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v86.apk",
+  "versionCode": 87,
+  "versionName": "87.0",
+  "notes": "v87 主要更新（v86 修复版）：\n- 🔴 修复「服务端未返回可用分组」根因：真机日志实测 GET /api/v1/groups/available 成功响应的 data 直接是数组（上游 sub2api 源码 response.Success(c, []dto.Group) 确证），而客户端解包层只接受对象型 data，把整个分组列表丢成了空对象——v86 及之前所有版本的「补建密钥 / 刷新分组」失败都卡在这一步，从未走到创建密钥接口。\n- 解包层升级：data 为数组时包装为 items 数组保留内容；新增统一数组剥取函数，同时兼容 data 数组 / 顶层数组 / data.items|list|groups|keys 四类形状。\n- 解析逻辑已用真机日志原始响应（分组数组、密钥分页、创建返回、签到状态）在桌面 JVM 上 11 项断言全部通过后再打包。\n- 其余不变：掩码 key 自动补取 / 缺分组自动创建兜底 / 分组行间距与下方一致。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v87.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v87.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v87.apk",
   "size": 523220,
-  "sha256": "f7f6384ceca03758269aee715eb0b125387940c61abd2afd69fdb67ef9be4414"
+  "sha256": "97dcd953f3b324e6f968497ad9b09c18455c930b6635ea85d28e30938485455d"
 }
