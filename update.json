@@ -1,10 +1,10 @@
 {
-  "versionCode": 87,
-  "versionName": "87.0",
-  "notes": "v87 主要更新（v86 修复版）：\n- 🔴 修复「服务端未返回可用分组」根因：真机日志实测 GET /api/v1/groups/available 成功响应的 data 直接是数组（上游 sub2api 源码 response.Success(c, []dto.Group) 确证），而客户端解包层只接受对象型 data，把整个分组列表丢成了空对象——v86 及之前所有版本的「补建密钥 / 刷新分组」失败都卡在这一步，从未走到创建密钥接口。\n- 解包层升级：data 为数组时包装为 items 数组保留内容；新增统一数组剥取函数，同时兼容 data 数组 / 顶层数组 / data.items|list|groups|keys 四类形状。\n- 解析逻辑已用真机日志原始响应（分组数组、密钥分页、创建返回、签到状态）在桌面 JVM 上 11 项断言全部通过后再打包。\n- 其余不变：掩码 key 自动补取 / 缺分组自动创建兜底 / 分组行间距与下方一致。",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v87.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v87.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v87.apk",
-  "size": 523220,
-  "sha256": "97dcd953f3b324e6f968497ad9b09c18455c930b6635ea85d28e30938485455d"
+  "versionCode": 88,
+  "versionName": "88.0",
+  "notes": "v88 主要更新：\n- 全模块统一账号路由：小泰、小白、肖恩、密钥查询、维云、星轴和小刀共用同一套并发互斥与选号机制，默认按「用完再换」，可在「我的→控制」切换为轮询。\n- 请求带 X-Session-Id 时保持会话账号；账号全忙时排队，超过全局并发上限才兜底共用，减少多账号并发时的串号。\n- 「我的」页新增「控制」全屏页面，集中管理统一路由、代理转发并发、批量操作并发和下拉快捷开关。\n- Token 计量改为紧凑的 K/M/B 显示，详情与导出保留千分位精确数字。\n- 小刀代理端口固定为 9302，与密钥查询 9194 分离。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v88.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v88.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v88.apk",
+  "size": 531412,
+  "sha256": "35ca4af5cf002674f2502eb67f86356b3c41b30fff59a0efb9ef5cfbc60f596a"
 }
