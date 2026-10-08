@@ -1,10 +1,10 @@
 {
-  "versionCode": 88,
-  "versionName": "88.0",
-  "notes": "v88 主要更新：\n- 全模块统一账号路由：小泰、小白、肖恩、密钥查询、维云、星轴和小刀共用同一套并发互斥与选号机制，默认按「用完再换」，可在「我的→控制」切换为轮询。\n- 请求带 X-Session-Id 时保持会话账号；账号全忙时排队，超过全局并发上限才兜底共用，减少多账号并发时的串号。\n- 「我的」页新增「控制」全屏页面，集中管理统一路由、代理转发并发、批量操作并发和下拉快捷开关。\n- Token 计量改为紧凑的 K/M/B 显示，详情与导出保留千分位精确数字。\n- 小刀代理端口固定为 9302，与密钥查询 9194 分离。",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v88.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v88.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v88.apk",
-  "size": 531412,
-  "sha256": "35ca4af5cf002674f2502eb67f86356b3c41b30fff59a0efb9ef5cfbc60f596a"
+  "versionCode": 90,
+  "versionName": "90.0",
+  "notes": "v90 主要更新：\n- 🆕 星轴新增「Go 升级」页（我的 → 星轴账号卡 / 控制页均可进入）：一条龙完成 GitHub 账号准备 → 一键 star + 关注 → 校验达标 → 去申请 → 激活升组，五步各自独立按钮，可单步重跑，底部带运行日志。\n- GitHub 账号池按星轴账号分组存放，凭证（PAT）只存本机、不上传服务器；每个账号可单独「去拿凭证 / 校验 / star / 备注 / 删除」。\n- star 与关注全自动；校验走公开接口，无需凭证即可逐号复查达标状态，并支持批量后自动复查一遍。\n- 激活成功后会再读一次状态回读确认，避免「提示成功但实际没升组」。\n- 🔴 修复重置卡批量操作谎报成功：此前退出登录的账号也会被判成功，现在改为白名单判定并区分「登录态失效 / 站点报错 / 网络失败」三类如实提示。\n- 修复自动使用重置卡的结果回读判定（原先可能把失败当成已开启）。\n- 小刀首页摘要卡改为总量统计：账号数 / 启用 / 可转发、总余额（含未知余额单独计数，不再按 0 累加）、待签到数。\n- 移除「代理常驻」开关（原开关与实际行为不符，容易误导）。\n- 打包流程修复：D8 输入改为 jar，避免类数量增长后命令行超长被静默分批、导致 dex 只剩部分类的严重问题；新增 dex 体积骤减防呆关卡。\n\n注意：申请那一步站点有 Cloudflare Turnstile 人机校验，必须手动勾选，无法全自动。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v90.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v90.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v90.apk",
+  "size": 560084,
+  "sha256": "cc38525471f2294253b15f53a5e4426992a1a5a2a2e7dfd3cbfab933be8e2c5d"
 }
