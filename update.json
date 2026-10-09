@@ -1,10 +1,10 @@
 {
-  "versionCode": 94,
-  "versionName": "94.0",
-  "notes": "v94 主要更新：\n- 🆕 小泰（taleapi.asia / 飞光）新增「自动注册账号」：账号管理里选第三项，点一下全自动跑完「建临时邮箱 → 发验证码 → 自动收码 → 注册 → 登录取令牌 → 建 API 密钥 → 加入账号列表」，用户名和密码随机生成，一次注册一个。\n- 邮箱由程序自建自收：用的是 mail.tm 的临时邮箱，你不需要提供任何邮箱、也不需要去别处注册。邮箱地址和密码会随账号一起存盘，日后可以去 https://mail.tm 用这组凭据登录，查信或找回账号。\n- 人机验证沿用老办法：过程中会弹两次 Cloudflare Turnstile（发码一次、注册一次，CF 令牌是一次性的），能自动过就自动过，过不了你手点一下即可，机制没动。\n- 全程有进度窗，显示当前走到第几步、收件箱是哪个地址；等验证码最长 90 秒。\n- 失败一律如实报：明确告诉你停在哪一步、站点原话是什么，绝不把失败说成成功。收不到验证码时会把邮箱地址和密码一并给出，方便你自己去 mail.tm 核验信到底有没有到。\n- 注册一旦成功就立刻存盘：即使后面登录或取密钥失败，账号也已经在列表里了，不会出现「站点上有号、本地却不知道」的黑户（那种情况会白占一个邮箱）。\n- 提示：站点注册页写明「每位用户只能持有一个账号，违反规定将被封禁」。请自己评估风险，这个功能不做批量。",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v94.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v94.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v94.apk",
-  "size": 592852,
-  "sha256": "867d4e965175be5ea331af52f9b6c02943bb03469d3d8998f3cfded2e76077b3"
+  "versionCode": 95,
+  "versionName": "95.0",
+  "notes": "v95 主要更新：\n- 🆕 腾讯反代「一键领积分」：一个按钮把账号池里所有号一次签完，跑完弹出逐号结果清单（谁领到了、谁今天已领、谁失败以及原因），并自动刷新一遍余额。\n- 🔧 修掉腾讯签到的老毛病：以前点「签到全部」其实走的是代理服务的自动调度，那里有 6 小时节流——6 小时内再点只会弹个提示，实际一个号都没签。现在改成点了就真去签，不受节流影响。\n- 🔧 而且「领积分」不再要求代理处于运行中，代理服务没启动也能领。\n- 🆕 计量页补齐三个模块：星轴、小刀、腾讯 现在都会计入「我的 → 计量」，此前只有密钥池、小泰、小白、Key查询、微云 五个。Token 用量、调用次数、无用量次数、失败次数全部按同一口径统计。\n- 🎨 小刀：去掉账号卡上的蓝框和「使用中」标签。那个蓝框会莫名默认套在第一个账号上，删号重登还会复现；而且你手动「固定使用」时描边是绿色，两种颜色语义打架。现在只保留绿色的「固定」标识，谁在被用一目了然。\n- 🎨 腾讯反代：状态卡里的「本地端点」和「API 密钥」支持长按复制，不用再手抄。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v95.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v95.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v95.apk",
+  "size": 596948,
+  "sha256": "be9147f46c21e45df9f98bfa604557ab51ea05f75b6913aa565a0ec53e7620c6"
 }
