@@ -1,10 +1,10 @@
 {
-  "versionCode": 90,
-  "versionName": "90.0",
-  "notes": "v90 主要更新：\n- 🆕 星轴新增「Go 升级」页（我的 → 星轴账号卡 / 控制页均可进入）：一条龙完成 GitHub 账号准备 → 一键 star + 关注 → 校验达标 → 去申请 → 激活升组，五步各自独立按钮，可单步重跑，底部带运行日志。\n- GitHub 账号池按星轴账号分组存放，凭证（PAT）只存本机、不上传服务器；每个账号可单独「去拿凭证 / 校验 / star / 备注 / 删除」。\n- star 与关注全自动；校验走公开接口，无需凭证即可逐号复查达标状态，并支持批量后自动复查一遍。\n- 激活成功后会再读一次状态回读确认，避免「提示成功但实际没升组」。\n- 🔴 修复重置卡批量操作谎报成功：此前退出登录的账号也会被判成功，现在改为白名单判定并区分「登录态失效 / 站点报错 / 网络失败」三类如实提示。\n- 修复自动使用重置卡的结果回读判定（原先可能把失败当成已开启）。\n- 小刀首页摘要卡改为总量统计：账号数 / 启用 / 可转发、总余额（含未知余额单独计数，不再按 0 累加）、待签到数。\n- 移除「代理常驻」开关（原开关与实际行为不符，容易误导）。\n- 打包流程修复：D8 输入改为 jar，避免类数量增长后命令行超长被静默分批、导致 dex 只剩部分类的严重问题；新增 dex 体积骤减防呆关卡。\n\n注意：申请那一步站点有 Cloudflare Turnstile 人机校验，必须手动勾选，无法全自动。",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v90.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v90.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v90.apk",
-  "size": 560084,
-  "sha256": "cc38525471f2294253b15f53a5e4426992a1a5a2a2e7dfd3cbfab933be8e2c5d"
+  "versionCode": 94,
+  "versionName": "94.0",
+  "notes": "v94 主要更新：\n- 🆕 小泰（taleapi.asia / 飞光）新增「自动注册账号」：账号管理里选第三项，点一下全自动跑完「建临时邮箱 → 发验证码 → 自动收码 → 注册 → 登录取令牌 → 建 API 密钥 → 加入账号列表」，用户名和密码随机生成，一次注册一个。\n- 邮箱由程序自建自收：用的是 mail.tm 的临时邮箱，你不需要提供任何邮箱、也不需要去别处注册。邮箱地址和密码会随账号一起存盘，日后可以去 https://mail.tm 用这组凭据登录，查信或找回账号。\n- 人机验证沿用老办法：过程中会弹两次 Cloudflare Turnstile（发码一次、注册一次，CF 令牌是一次性的），能自动过就自动过，过不了你手点一下即可，机制没动。\n- 全程有进度窗，显示当前走到第几步、收件箱是哪个地址；等验证码最长 90 秒。\n- 失败一律如实报：明确告诉你停在哪一步、站点原话是什么，绝不把失败说成成功。收不到验证码时会把邮箱地址和密码一并给出，方便你自己去 mail.tm 核验信到底有没有到。\n- 注册一旦成功就立刻存盘：即使后面登录或取密钥失败，账号也已经在列表里了，不会出现「站点上有号、本地却不知道」的黑户（那种情况会白占一个邮箱）。\n- 提示：站点注册页写明「每位用户只能持有一个账号，违反规定将被封禁」。请自己评估风险，这个功能不做批量。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v94.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v94.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v94.apk",
+  "size": 592852,
+  "sha256": "867d4e965175be5ea331af52f9b6c02943bb03469d3d8998f3cfded2e76077b3"
 }
