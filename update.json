@@ -1,10 +1,10 @@
 {
-  "versionCode": 99,
-  "versionName": "99.0",
-  "notes": "v99 更新（千问反代模块上线 + 腾讯红点 / 千问验证修复）：\n\n- ★ 新增「千问反代」模块：网关地址 http://127.0.0.1:7860（Base URL 末尾加 /v1）。控制页提供启动/停止网关、账号管理、刷新 Token、登录/滑块验证；底部切换条改为「小刀 | 腾讯 | 千问」三格，互相直达。账号用「添加账号（邮箱 + 密码）」录入。\n- ★ 修复腾讯反代红点：国际版账号（workbuddy.ai）没有每日签到功能，以前会被算进\"未签到\"红点、签到也永远失败。现在红点、自动签到、一键领积分全部只统计国内版账号；国际版账号在领积分结果里显示「国际版无签到，跳过」。\n- ★ 修复千问登录/滑块验证三处异常：① 从验证页返回时新 Cookie 自动同步，有变化会自动重启网关（不用再\"退出重进\"手动重启）；② 从验证页返回后账号列表会自动刷新，不用再手动点刷新；③ 验证页与添加账号两个入口的分工在界面上写清楚了。\n- 🔧 腾讯反代界面套用统一风格（渐变卡片、药丸按钮），全部原有功能保留（区域切换、设备流登录、查额度、一键领积分、固定/停用/删除）。",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v99.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v99.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v99.apk",
-  "size": 5164062,
-  "sha256": "32eab6a6e4d74f57f1db95f7bf674638aed12f7aba5daef001ab216a2525a8ee"
+  "versionCode": 100,
+  "versionName": "100.0",
+  "notes": "v100 更新（千问滑块修复 + 批量注册账号）：\n- ★ 修复千问「连连看」式滑块反复连不对的问题：验证页与网关请求的 User-Agent 从硬编码假值（Chrome/120 / Android 14）改为动态跟随系统 WebView 内核真实值（本机实测 Chrome/138 / Android 16）。原因：假 UA 与内核实际上报的 Client Hints 自相矛盾，被阿里云 WAF 判定为可疑环境，把滑块从静默放行降级为必须人工反复连对。与 v80 微云验证修复同款方案，修复后验证应恢复「连一次即过 / 静默放行」。\n- ★ 新增「批量注册账号」功能（账号页 → 批量注册账号）：一次可注册 1~50 个千问账号，全自动完成——临时邮箱自动建箱 → 自动收 6 位验证码 → 自动注册 → 注册成功直接存入账号池（token-only 注入，无需密码），本地同时保存凭据（filesDir/qwen_otp_pool.json），失败逐条如实报告、随时可停。\n- ★ 「刷新 Token」现在支持批量注册的 OTP 账号：无密码账号自动走 refresh_token 续期链（每 30 天换新），不再报「缺邮箱或密码」。\n- 🔧 防限流：批量注册串行执行 + 随机间隔（单账号约 15~40 秒），mail.tm 触发 429 时自动退避重试。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v100.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v100.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v100.apk",
+  "size": 5172254,
+  "sha256": "62d8454a29c2e32189799fa21feb3f4962ce5ca8da404e7b00b2c71c5fbbf3ef"
 }
