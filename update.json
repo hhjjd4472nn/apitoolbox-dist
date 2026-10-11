@@ -1,10 +1,10 @@
 {
-  "versionCode": 97,
-  "versionName": "97.0",
-  "notes": "v97 主要更新（数据同步 / 备份功能重大修复）：\n\n- ★ 修掉一个致命 bug：备份数据在导出的那一刻就丢了。以前你点「复制备份内容」「存成文件」「局域网互传」里的任何一个，拿到手的那一大串 CB1: 开头的字符，看着像模像样、有一大串字母，其实里面只有个空壳——真正的账号数据一个字节都没写进去。所以换到新手机上点「解析预览」必然报「数据损坏」。这个 bug 从 v78 一直存在到 v96，共 19 个版本，全部中招。\n- ★ 现在导出的备份串才是完整的。修好之后同样一份数据，串长会从两百多个字符变成两千多个字符（数据越多越长），这是「真的装进去了」最直观的判断标准。\n- 🔧 局域网互传本身没问题，一并确认过：WiFi 连接、6 位配对码、数据传输、自动回填都是好的。以前之所以失败，纯粹是因为发过去的东西本身就是空的。现在旧手机点「开始发送」、新手机自动填入内容后，解析就能正常出数据了。\n- 🔧 报错提示终于能看懂了。以前不管是数据被截断、口令输错、还是内容格式不对，一律笼统地报一句「解压失败：数据已损坏或被截断」，根本没法排查。现在会分开报，并且带上具体原因：\n  · 口令错了 → 「口令错误，或文件已被篡改」\n  · 忘了填口令 → 「这份备份是加密的，请输入口令」\n  · 复制时漏了字符 → 「数据已损坏或被截断（具体异常类型）」\n  · 粘进来的不是本应用的备份 → 「不是本应用的备份内容」\n- ⚠️ 升级后请务必重新导出一次备份。你在 v96 及更早版本导出的所有备份串（不管是复制的、存的 .txt 文件、还是发给另一台手机的）全都是无效空壳，里面没有任何账号数据，留着没用，请删掉重新导。好消息是这不影响你的原始数据——账号一直好好地在手机本地，只是「导出」这一步坏了，重新导一次就正常了。",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v97.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v97.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v97.apk",
-  "size": 596948,
-  "sha256": "c4a2d82b1740a523c4c04f6b94055a95caffd3b9e177b487d15dd59c6d0dc325"
+  "versionCode": 99,
+  "versionName": "99.0",
+  "notes": "v99 更新（千问反代模块上线 + 腾讯红点 / 千问验证修复）：\n\n- ★ 新增「千问反代」模块：网关地址 http://127.0.0.1:7860（Base URL 末尾加 /v1）。控制页提供启动/停止网关、账号管理、刷新 Token、登录/滑块验证；底部切换条改为「小刀 | 腾讯 | 千问」三格，互相直达。账号用「添加账号（邮箱 + 密码）」录入。\n- ★ 修复腾讯反代红点：国际版账号（workbuddy.ai）没有每日签到功能，以前会被算进\"未签到\"红点、签到也永远失败。现在红点、自动签到、一键领积分全部只统计国内版账号；国际版账号在领积分结果里显示「国际版无签到，跳过」。\n- ★ 修复千问登录/滑块验证三处异常：① 从验证页返回时新 Cookie 自动同步，有变化会自动重启网关（不用再\"退出重进\"手动重启）；② 从验证页返回后账号列表会自动刷新，不用再手动点刷新；③ 验证页与添加账号两个入口的分工在界面上写清楚了。\n- 🔧 腾讯反代界面套用统一风格（渐变卡片、药丸按钮），全部原有功能保留（区域切换、设备流登录、查额度、一键领积分、固定/停用/删除）。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v99.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v99.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v99.apk",
+  "size": 5164062,
+  "sha256": "32eab6a6e4d74f57f1db95f7bf674638aed12f7aba5daef001ab216a2525a8ee"
 }
