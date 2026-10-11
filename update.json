@@ -1,10 +1,10 @@
 {
-  "versionCode": 100,
-  "versionName": "100.0",
-  "notes": "v100 更新（千问滑块修复 + 批量注册账号）：\n- ★ 修复千问「连连看」式滑块反复连不对的问题：验证页与网关请求的 User-Agent 从硬编码假值（Chrome/120 / Android 14）改为动态跟随系统 WebView 内核真实值（本机实测 Chrome/138 / Android 16）。原因：假 UA 与内核实际上报的 Client Hints 自相矛盾，被阿里云 WAF 判定为可疑环境，把滑块从静默放行降级为必须人工反复连对。与 v80 微云验证修复同款方案，修复后验证应恢复「连一次即过 / 静默放行」。\n- ★ 新增「批量注册账号」功能（账号页 → 批量注册账号）：一次可注册 1~50 个千问账号，全自动完成——临时邮箱自动建箱 → 自动收 6 位验证码 → 自动注册 → 注册成功直接存入账号池（token-only 注入，无需密码），本地同时保存凭据（filesDir/qwen_otp_pool.json），失败逐条如实报告、随时可停。\n- ★ 「刷新 Token」现在支持批量注册的 OTP 账号：无密码账号自动走 refresh_token 续期链（每 30 天换新），不再报「缺邮箱或密码」。\n- 🔧 防限流：批量注册串行执行 + 随机间隔（单账号约 15~40 秒），mail.tm 触发 429 时自动退避重试。",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v100.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v100.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v100.apk",
+  "versionCode": 101,
+  "versionName": "101.0",
+  "notes": "v101 更新（千问网关守护 + 注入加固 + 千问/腾讯账号管理面板）：\n\n- ★ 修复千问「批量注册最后一步提示注入网关失败」：根因是系统把网关子进程当\"幽灵进程（phantom process）\"清理后 App 无感知（界面仍显示运行中、实际 7860 端口已无监听），此后所有注入都会失败。本次新增网关守护线程：每 15 秒探活一次，发现进程被系统清理 / 无响应后自动重启（最多 3 次，5/15/30 秒退避），恢复后通知栏与界面状态自动更新；稳定运行 2.5 分钟后恢复额度自动重置。\n- ★ 注入链路加固：注册后注入前先探活，失败等 3 秒自动重试一次；仍不通时给出明确文案（\"网关无响应（可能被系统清理），账号已存本地池\"），不再出现空白原因。\n- ★ 状态胶囊如实化：网关异常时显示「异常 网关无响应 · 守护自动恢复中」（警示色），不再盲目显示 ONLINE；点击会提示守护正在恢复。\n- ★ 千问「账号管理」改为就地弹面板（与「小泰」模块同款交互）：添加账号（邮箱 + 密码）/ 批量注册账号（自动建箱收码，1~50 个）在控制页直接弹出选择；账号页不再保留这两个按钮（专注展示账号列表）。\n- ★ 腾讯控制页新增「账号管理」按钮（与千问同款就地弹面板）：国内版登录 / 国际版登录 / 粘贴 token；账号页不再保留登录按钮（登录进度仍会在账号页显示，可随时取消）。\n- 其他：千问验证页、诊断卡、空状态等文案同步更新（添加账号入口统一指向「控制」页「账号管理」）。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v101.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v101.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v101.apk",
   "size": 5172254,
-  "sha256": "62d8454a29c2e32189799fa21feb3f4962ce5ca8da404e7b00b2c71c5fbbf3ef"
+  "sha256": "bff7317e5595a5cdc0282f10103d4fb87e248479e7a378e435ec7111799fa506"
 }
