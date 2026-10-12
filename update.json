@@ -1,10 +1,10 @@
 {
-  "versionCode": 103,
-  "versionName": "103.0",
-  "notes": "v103 更新（千问自动续期 + 启动自检 + 显示优化）：\n\n- ★ 千问自动续期（彻底告别\"每 15 分钟手动刷新\"）：网关运行期间自动巡检账号池，令牌（AT）快过期时自动用续期钥匙（RT）/密码换新（写回网关 + 本地池）。启动网关后 3 秒先跑一轮——过期的账号启动即自动恢复新鲜；之后每 60 秒巡检一次。批量注册的账号从此不用手动刷新。\n- ★ 启动自检（不用再绕道 AI 软件触发验证）：网关就绪后自动经统一通道发一条最小测试请求（走账号池 + 上游全链路）。若上游要求滑块验证 → 自动弹出「千问需要滑块验证」通知，点按直达验证页；完成验证自动同步并重启网关。若无需验证 → 静默通过，什么都不用管。\n- ★ 显示修正：账号卡片「Token 剩余」在不足 1 天时按分钟显示（如「15 分钟」），不再出现误导的「0.0天」；批量注册的账号额外显示「续期剩余 X 天」（RT 有效期，30 天）。\n- 🔧 内部加固：RT 是一次性轮换（旧 RT 立即作废）——刷新时先落盘新 RT 再写回网关，防异常丢钥匙；手动刷新与自动续期互斥（防并发竞态）。\n- 说明：实验确认上游忽略\"注册时携带的密码\"字段（无法让 OTP 账号直接拿 30 天令牌），自动续期方案已完全覆盖该场景（效果等同：账号始终保持新鲜可用）。",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v103.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v103.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v103.apk",
+  "versionCode": 104,
+  "versionName": "104.0",
+  "notes": "v104 更新（千问注册人机验证修复）：\n- ★ 修复「自动注册被弹人机验证」：千问注册接口（auth.qwen.ai）新增了阿里云 WAF 拦截——按请求头中的 source 字段选择性拦截，触发滑块验证页。\n- ★ 修复方案（实测验证）：注册/续期请求改用「双 source 头」——业务后端读首值（web，合法），WAF 读末值（app，放行），两边各读各的，不再触发人机验证。恢复纯自动注册，无需人工滑块。\n- 说明：本次只改一处请求头逻辑（QwenRegister），注册链（请求验证码 + 提交注册 + 自动续期）全部恢复原样自动运行。\n- 备注：若上游后续再调整 WAF 规则，可能需再次适配；届时可在千问页「登录 / 滑块验证」手动完成验证应急。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v104.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v104.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v104.apk",
   "size": 5176350,
-  "sha256": "af3e194f66e0d2b67350bfe0f485179c3b2b47c2666f950cbab9d812f0b8999b"
+  "sha256": "ee07644ef1baa9922f8a41e0036135ad9d33bd1c2ba604d6d5b3bbe024c76dd4"
 }
