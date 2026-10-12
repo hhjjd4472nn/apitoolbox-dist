@@ -1,10 +1,10 @@
 {
-  "versionCode": 101,
-  "versionName": "101.0",
-  "notes": "v101 更新（千问网关守护 + 注入加固 + 千问/腾讯账号管理面板）：\n\n- ★ 修复千问「批量注册最后一步提示注入网关失败」：根因是系统把网关子进程当\"幽灵进程（phantom process）\"清理后 App 无感知（界面仍显示运行中、实际 7860 端口已无监听），此后所有注入都会失败。本次新增网关守护线程：每 15 秒探活一次，发现进程被系统清理 / 无响应后自动重启（最多 3 次，5/15/30 秒退避），恢复后通知栏与界面状态自动更新；稳定运行 2.5 分钟后恢复额度自动重置。\n- ★ 注入链路加固：注册后注入前先探活，失败等 3 秒自动重试一次；仍不通时给出明确文案（\"网关无响应（可能被系统清理），账号已存本地池\"），不再出现空白原因。\n- ★ 状态胶囊如实化：网关异常时显示「异常 网关无响应 · 守护自动恢复中」（警示色），不再盲目显示 ONLINE；点击会提示守护正在恢复。\n- ★ 千问「账号管理」改为就地弹面板（与「小泰」模块同款交互）：添加账号（邮箱 + 密码）/ 批量注册账号（自动建箱收码，1~50 个）在控制页直接弹出选择；账号页不再保留这两个按钮（专注展示账号列表）。\n- ★ 腾讯控制页新增「账号管理」按钮（与千问同款就地弹面板）：国内版登录 / 国际版登录 / 粘贴 token；账号页不再保留登录按钮（登录进度仍会在账号页显示，可随时取消）。\n- 其他：千问验证页、诊断卡、空状态等文案同步更新（添加账号入口统一指向「控制」页「账号管理」）。",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v101.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v101.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v101.apk",
-  "size": 5172254,
-  "sha256": "bff7317e5595a5cdc0282f10103d4fb87e248479e7a378e435ec7111799fa506"
+  "versionCode": 102,
+  "versionName": "102.0",
+  "notes": "v102 更新（腾讯按钮折行修复 + 千问账号列表缓存）：\n\n- ★ 修复腾讯控制页「查全部额度 / 一键领积分」显示\"陷下去\"：v101 新增「账号管理」后一行四枚按钮，单枚宽度变小，「查全部额度 / 一键领积分」（5 个字）在 13sp 下被挤成两行，撑乱整行高度对齐。现统一将该行四枚按钮字号调整为 11sp（保证单行显示），并关闭按钮行的文字基线对齐（防行内文字行数不一致时错位）。\n- ★ 修复千问「停止网关后退出重进，账号页显示 0 个」：账号列表原设计只在网关运行时才能读取（网关没开就显示空）。现在新增本地缓存——每次成功读取账号列表后自动缓存；网关停止时账号页直接显示上次缓存的列表，并在摘要卡标注「（网关未启动 · 显示上次缓存）」，启动网关后自动刷新为实时数据。账号数据本身一直保存在网关侧持久化文件中，从未丢失。\n- 其他：网关运行中但临时读取失败时（如刚被系统清理、守护恢复中），列表自动回退到缓存，不再闪空。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v102.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v102.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v102.apk",
+  "size": 5176350,
+  "sha256": "17bd755736112019ac0f993d45b867ed2bc9fb03e52399960000dd99c000bd61"
 }
