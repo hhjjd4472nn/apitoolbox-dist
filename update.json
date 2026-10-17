@@ -1,10 +1,10 @@
 {
-  "versionCode": 105,
-  "versionName": "105.0",
-  "notes": "v105 修复三处判据错误\n\n【腾讯反代】400「请求被拦截」不再弹窗打断对话\n- 新增「瞬时拦截」错误类型：识别上游「请求被拦截 / 请重新发送 / rate limited / too many requests」等措辞\n- 代理侧自行退避重试（最多 5 次，每次间隔递增），不再把 400 原样透传给 Operit 触发弹窗\n- 同一账号发起间隔限制 200ms，降低触发上游风控的概率\n- 说明：此类拦截是上游限流，与请求内容无关（实测同一份请求体既出现 400 也出现 200，且 400 后紧跟 200 达 24/24）\n\n【千问反代】滑块验证不再「假成功」\n- 旧判据是「Cookie 有没有变化」，但访问 punish 页本身就会刷新风控 Cookie，导致滑块失败退出也被判成功\n- 新判据：只有从验证页跳回 chat.qwen.ai 正常域才算通过；返回键一律视为放弃\n- 新增 5 秒秒退保护：进验证页不足 5 秒就退出，按放弃处理\n- 只有确认通过才删除 punish_url.txt；未通过时保留，下游仍会提示需要验证\n\n【星轴 Go 升级】star 状态正确回写\n- 旧代码 star 成功后写回时状态参数传 null，被 merge 规则当作「未知」忽略，导致卡片永远显示旧的 ✗\n- 改为 star 后立刻 GET 回读校验（查不出时自动重试一轮），再写回真实状态\n- 运行日志会附带回读结论，不再出现「日志说成功、卡片显示 ✗」的自相矛盾\n- 账号卡片按钮文案「重取凭证 / 去拿凭证」改为「换证 / 拿证」，避免小屏折行",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v105.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v105.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v105.apk",
+  "versionCode": 106,
+  "versionName": "106.0",
+  "notes": "v106 修复「star 明明成功、卡片永远显示 ✗」\n\n【真因】\n星轴账号卡片上的 GitHub 用户名是「手动填」的，而这个用户名在 GitHub 上并不存在。\n- 写操作（star / 关注）用的是 token 身份 → 成功了\n- 读操作（校验）用的是手填的用户名 → 查一个不存在的人，永远 404\n- 旧代码把 404 一律当成「确定没 star」，于是界面永远显示 ✗\n⇒ 写和读不是同一个身份，这是本次故障的根源。\n\n【为什么会出现手填】\n网页抓到 token 后会用 token 反查用户名。GitHub 新生成的 PAT 有几秒生效延迟，\n此时反查拿到 401，程序就弹框让用户手填。手填一旦拼错，后续校验全部 404。\n\n【本次修复】\n1. 校验改为「有 token 就用 token 查自己」\n   GET /user/starred/{owner}/{repo}、GET /user/following/{owner}\n   返回的是 token 真实所属账号的状态，不受手填用户名对错影响。\n   写用 token、读也用 token，两边终于是同一个身份。\n\n2. 新增用户名有效性诊断\n   校验前先 GET /users/{login} 确认这个名字真实存在。\n   不存在时界面明确显示「用户名 @xxx 在 GitHub 上不存在（拼写有误或账号已删）」，\n   而不是含糊地画一个 ✗。汇总处也会提示「N 个用户名无效」。\n\n3. 手填用户名时立刻校验\n   填完当场查一次，404 直接拦住并提示检查拼写，不再存进去。\n   网络错时放行但提醒，稍后点「校验」可再确认。\n\n4. token 反查加 4 次重试（每次间隔 1.5 秒）\n   覆盖 GitHub 新 PAT 的生效延迟，尽量避免走到手填这一步。\n\n5. 顺手修掉一个隐患\n   userExists() 原本是死代码（全项目零调用），且把「网络错误」当成「用户不存在」。\n   改为三态：存在 / 确实不存在 / 查不出，避免误报。\n\n【怎么用】\n升级后如果卡片仍显示「用户名无效」，点「换证」重新登录一次，\n让程序自动反查真实用户名即可（现在有重试，大概率不用再手填）。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v106.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v106.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v106.apk",
   "size": 5180446,
-  "sha256": "df589755e55db791e3d7adca0268f0f9fb116d1e7d0991394b9bd6c723ea5818"
+  "sha256": "cfa4b1ac20e4098d67b934121fa438a456c1be2ead3bf045a392600b857bfdbf"
 }
