@@ -1,10 +1,10 @@
 {
-  "versionCode": 106,
-  "versionName": "106.0",
-  "notes": "v106 修复「star 明明成功、卡片永远显示 ✗」\n\n【真因】\n星轴账号卡片上的 GitHub 用户名是「手动填」的，而这个用户名在 GitHub 上并不存在。\n- 写操作（star / 关注）用的是 token 身份 → 成功了\n- 读操作（校验）用的是手填的用户名 → 查一个不存在的人，永远 404\n- 旧代码把 404 一律当成「确定没 star」，于是界面永远显示 ✗\n⇒ 写和读不是同一个身份，这是本次故障的根源。\n\n【为什么会出现手填】\n网页抓到 token 后会用 token 反查用户名。GitHub 新生成的 PAT 有几秒生效延迟，\n此时反查拿到 401，程序就弹框让用户手填。手填一旦拼错，后续校验全部 404。\n\n【本次修复】\n1. 校验改为「有 token 就用 token 查自己」\n   GET /user/starred/{owner}/{repo}、GET /user/following/{owner}\n   返回的是 token 真实所属账号的状态，不受手填用户名对错影响。\n   写用 token、读也用 token，两边终于是同一个身份。\n\n2. 新增用户名有效性诊断\n   校验前先 GET /users/{login} 确认这个名字真实存在。\n   不存在时界面明确显示「用户名 @xxx 在 GitHub 上不存在（拼写有误或账号已删）」，\n   而不是含糊地画一个 ✗。汇总处也会提示「N 个用户名无效」。\n\n3. 手填用户名时立刻校验\n   填完当场查一次，404 直接拦住并提示检查拼写，不再存进去。\n   网络错时放行但提醒，稍后点「校验」可再确认。\n\n4. token 反查加 4 次重试（每次间隔 1.5 秒）\n   覆盖 GitHub 新 PAT 的生效延迟，尽量避免走到手填这一步。\n\n5. 顺手修掉一个隐患\n   userExists() 原本是死代码（全项目零调用），且把「网络错误」当成「用户不存在」。\n   改为三态：存在 / 确实不存在 / 查不出，避免误报。\n\n【怎么用】\n升级后如果卡片仍显示「用户名无效」，点「换证」重新登录一次，\n让程序自动反查真实用户名即可（现在有重试，大概率不用再手填）。",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v106.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v106.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v106.apk",
+  "versionCode": 107,
+  "versionName": "107.0",
+  "notes": "v107 改用「写操作结果」判定 star/关注状态\n\n【背景】\n上一版发现：你的 GitHub 账号在公开 API 里查不到\n（GET /users/用户名 返回 404，搜索结果为 0 条，配额未用完）。\n但 star 写入是真实成功的（PUT 返回 204）。\n结果就是：写成功了、查不出来，卡片只能画 ✗。\n\n【本次改动】\n1. 以「写操作的返回」为第一手判据\n   star + 关注操作完成后，直接按 GitHub 的返回文案判定状态：\n   · 已 star 并关注 @xxx        → star ✓ 关注 ✓\n   · 已 star，但关注 @xxx 失败  → star ✓ 关注 ✗\n   · star 失败：...             → star ✗\n   回读结果仍保留作为补充，但不再覆盖写操作的结论。\n\n2. 校验时名字查不到，改用 token 查自己\n   以前名字查不到就直接跳过，什么信息都没有。\n   现在会用凭证调 GET /user/starred/...（查自己），\n   这个接口不受账号是否公开可见影响，仍能拿到真实状态。\n\n3. 卡片明确标注来源\n   当状态来自写操作、而账号在公开接口查不到时，\n   卡片会显示「（已写入 GitHub；账号未公开可见）」，\n   避免你看到 ✓ 却不知道为什么点校验还报错。\n\n4. 提示文案更准确\n   不再武断地说「拼写有误」，而是提示可能是拼写问题，\n   也可能是新号风控导致不公开可见。\n\n【重要说明】\n卡片上的 ✓ 现在的含义是「GitHub 已接受并确认了这次 star/关注请求」。\n在账号公开可见的情况下，它和以前完全等价；\n只有在账号被限制公开可见时，才会出现「✓ 但公开查询查不到」的情况。\n\n【下一步】\n拿新注册的账号走一遍完整流程（拿证 → star + 关注），\n然后去星轴站点提交申请，看能否激活升级。\n· 激活成功 → 说明 star/关注确实生效，本方案定型\n· 激活失败 → 说明 star 没真正落地，回来继续排查",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v107.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v107.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v107.apk",
   "size": 5180446,
-  "sha256": "cfa4b1ac20e4098d67b934121fa438a456c1be2ead3bf045a392600b857bfdbf"
+  "sha256": "e0a1bb02c48293e38087138039e3fe37f50f1c9fd3f059a48d8cd278b3deba00"
 }
