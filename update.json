@@ -1,10 +1,10 @@
 {
-  "versionCode": 126,
-  "versionName": "126.0",
-  "notes": "v126 新增「临时邮箱」模块（微云）\n\n· 控制页「一键验证」下面新增「临时邮箱」按钮，点进去是独立页面\n· 用选中账号的登录态直接换临时邮箱密钥，不用手动填任何 key\n· 支持三种类型：原始 Gmail / 点号别名 / 加号别名；要不到高价值的自动降级\n· 领到地址后显示 30 分钟倒计时（剩 5 分钟变红），一键复制地址\n· 点「开始收码」自动长轮询，拿到验证码自动复制，并识别验证链接\n· 卡片上直接显示本次消耗（今日免费 / 订阅额度 / 钱包余额）\n· 最近 20 个邮箱记录，带剩余时间和已收的验证码，可单独删除\n· 从「订阅套餐」页返回时自动重读账号，订阅状态立即刷新\n· 本版不包含订阅购买、充值、账号增删 —— 这些沿用原有页面，避免功能重复",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v126.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v126.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v126.apk",
+  "versionCode": 127,
+  "versionName": "127.0",
+  "notes": "v127 修复与优化\n\n【临时邮箱】\n· 修复账号下拉里只显示「订阅有效」、看不到账号名的问题（账号名现在正常显示）\n· 订阅到期时间不再显示毫秒时间戳，改为 yyyy-MM-dd\n\n【小刀模块】\n· 一键签到的人机验证现在只弹一次：验证通过后复用同一份凭证给后续所有账号，账号再多也只过一个\n· 凭证缓存 3 分钟，超时自动失效并重新验证\n· 账号卡片的签到菜单里，「普通签到」明确标注为「（仅该账号）」，避免误触成全部签到",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v127.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v127.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v127.apk",
   "size": 5237790,
-  "sha256": "6d388bf0bea7ff73df5faa3772f6969237a2b1c8a9a64a8380dd21b26abf7835"
+  "sha256": "abd52f286bc8a5cdda319c4f01afa6b7fde79fd21837defbbd8cc81f206cc510"
 }
