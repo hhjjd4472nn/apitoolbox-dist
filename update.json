@@ -1,10 +1,10 @@
 {
-  "versionCode": 127,
-  "versionName": "127.0",
-  "notes": "v127 修复与优化\n\n【临时邮箱】\n· 修复账号下拉里只显示「订阅有效」、看不到账号名的问题（账号名现在正常显示）\n· 订阅到期时间不再显示毫秒时间戳，改为 yyyy-MM-dd\n\n【小刀模块】\n· 一键签到的人机验证现在只弹一次：验证通过后复用同一份凭证给后续所有账号，账号再多也只过一个\n· 凭证缓存 3 分钟，超时自动失效并重新验证\n· 账号卡片的签到菜单里，「普通签到」明确标注为「（仅该账号）」，避免误触成全部签到",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v127.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v127.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v127.apk",
+  "versionCode": 128,
+  "versionName": "128.0",
+  "notes": "v128 修复\n\n【小刀模块】\n· 修好「一键签到仍然逐个弹验证」：上次缓存判断插错了分支（插在 turnstileOn=false 的路径里），\n  这次修正为真正的弹窗路径先查缓存。第 1 个账号过验证后，其余账号全部复用，\n  账号再多也只过一次。\n· 「今日已签」显示加上空值保护，没签过的账号不会再误判成已签。\n\n【临时邮箱】\n· 修好「退出重进后收不到邮件」：重进页面时自动从记录里恢复最近一个仍有效的邮箱，\n  当前邮箱卡片、倒计时、收码按钮都会回来。\n· 「最近邮箱」里的每条记录现在可以直接点，点一下就切回那个地址，立刻能开始收码。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v128.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v128.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v128.apk",
   "size": 5237790,
-  "sha256": "abd52f286bc8a5cdda319c4f01afa6b7fde79fd21837defbbd8cc81f206cc510"
+  "sha256": "9e06410fc2aa7c025c3ad8fcaca36a9949683a485fb016a30114b5621b3788d5"
 }
