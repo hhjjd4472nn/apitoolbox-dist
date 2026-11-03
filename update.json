@@ -1,10 +1,10 @@
 {
-  "versionCode": 112,
-  "versionName": "112.0",
-  "notes": "v112 微云签到：修「第一次成几个、第二次全失败」\n\n【你遇到的现象】\n一键签到 15 个号，第一次成功七八个、其余失败；\n再点一次，15 个全失败。\n\n【查到的原因】\n先说我实测到的站点侧事实（2026-10-27，不带你账号的匿名探测）：\n  GET  /api/status                → 200（正常到站点）\n  GET  /api/user/self             → 401（正常到站点）\n  POST /api/user/checkin          → 403，返回的是 Cloudflare 的\n                                    「Just a moment...」验证页，不是站点的回复\n  GET  /api/user/checkin?month=…  → 403，同上\n  GET  /api/gwent/status          → 403，同上\n\n也就是说，站点是「按路径」挑着挡的：签到和福利被 Cloudflare 挡在门外，\n查询自己信息这类接口不挡。这也解释了为什么刷新额度往往还行、签到却一直失败。\n\n然后是我自己代码里的三个问题，它们把一次偶发失败放大成了「全批失败」：\n\n1）验证没通过时，把已有的通行凭证直接扔了，而且不还回来\n   原来的写法是：一发现被拦，先把上次成功的凭证清掉，再去弹验证窗。\n   弹窗要是没通过（超时、你点了取消、页面一直转圈），凭证就永久没了。\n   于是后面 15 个号全在「没凭证」的状态下跑，必然全 403。\n   这正是「第二次点全失败」的直接原因。\n   现在改成：先备份凭证 → 验证失败就原样还回来 → 并进入 90 秒冷却，\n   冷却期间不再反复弹窗。\n\n2）多个号同时签到时会互相抢验证窗口\n   原来验证窗口只留一个「等待位」，三个线程一起要验证时，\n   后一个会把前一个挤掉，被挤掉的那个只能干等 45 秒然后报超时。\n   现在改成排队，谁都不会被漏掉。\n\n3）签到是并发跑的，还完全没有间隔\n   15 个号用 3 路并发连打同一个签到接口，正好撞在 Cloudflare 的行为判定上：\n   前几个放行、后面的开始拦。跟你看到的「前半成功、后半失败」完全吻合。\n   现在改成：签到串行，每个号之间至少隔 1.2 秒。\n   （刷新额度仍然是并发的，速度不受影响。）\n\n【顺带修的】\n- 以前签到失败只会显示「签到失败 HTTP 403」，看不到真实原因。\n  现在会把原因一起写出来，比如\n  「签到失败 HTTP 403（Cloudflare 验证刚失败，冷却中（还需 68 秒））」\n  以后再出问题，一眼就能看出卡在哪一步。\n- 整批超时预算原来固定 120 秒，15 个号根本不够，后半批被误记成「超时」。\n  现在按账号数放宽（每个号 30 秒，最少 2 分钟，最多 20 分钟）。\n- 识别被拦的条件原来只认 403，现在 429 / 503 也算（Cloudflare 有时用这两个码下发验证）。\n\n【怎么用】\n1. 进微云模块，点「一键签到」\n2. 如果弹出 Cloudflare 验证窗，等它自己过；要是有勾选框就点一下\n3. 过了之后会按 1.2 秒一个的节奏逐个签，15 个号大约 20~40 秒\n\n【如果还是全失败】\n那就不是应用的问题了，是你当前这个网络的出口 IP 被站点那边盯上了。\n账号卡上会明确写出「冷却中（还需 N 秒）」这类原因。\n这时候可以试试：换个网络（Wi-Fi ↔ 流量），或者到「我的 → 内置隧道」把微云开关关掉再签。\n\n【说明】\n本次只动微云模块的 4 个文件，没有改代理转发、账号存储、签到接口路径和协议。\n你的账号数据、代理配置都不受影响，可以覆盖安装。",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v112.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v112.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v112.apk",
-  "size": 5184542,
-  "sha256": "452bb4cdfd13dfe63179d6f897a096fd780816517353b37ff4fb231d0e000a3a"
+  "versionCode": 126,
+  "versionName": "126.0",
+  "notes": "v126 新增「临时邮箱」模块（微云）\n\n· 控制页「一键验证」下面新增「临时邮箱」按钮，点进去是独立页面\n· 用选中账号的登录态直接换临时邮箱密钥，不用手动填任何 key\n· 支持三种类型：原始 Gmail / 点号别名 / 加号别名；要不到高价值的自动降级\n· 领到地址后显示 30 分钟倒计时（剩 5 分钟变红），一键复制地址\n· 点「开始收码」自动长轮询，拿到验证码自动复制，并识别验证链接\n· 卡片上直接显示本次消耗（今日免费 / 订阅额度 / 钱包余额）\n· 最近 20 个邮箱记录，带剩余时间和已收的验证码，可单独删除\n· 从「订阅套餐」页返回时自动重读账号，订阅状态立即刷新\n· 本版不包含订阅购买、充值、账号增删 —— 这些沿用原有页面，避免功能重复",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v126.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v126.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v126.apk",
+  "size": 5237790,
+  "sha256": "6d388bf0bea7ff73df5faa3772f6969237a2b1c8a9a64a8380dd21b26abf7835"
 }
