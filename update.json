@@ -1,10 +1,10 @@
 {
-  "versionCode": 136,
-  "versionName": "136.0",
-  "notes": "v136 修复（微云「一键签到不弹验证窗」）\n【根因】\n签到失败后，app 需要判断「这次失败是不是因为要人机验证」。\n判断函数 needsTurnstile 只认三个关键词：Turnstile / turnstile / 验证。\n站点现在的失败文案里这三个词一个都没有，于是判定成「不需要验证」，\n窗口一次都不弹，直接拿空令牌去签到 —— 就失败。\n\n上一版主人看到的日志里，token_callback 和 token_wait 一条都没有，\n正好印证：弹窗流程根本没被调用过。\n\n【这版怎么改】\n把判断的默认值反过来：\n  · 结果是空            → 不弹\n  · 是 Cloudflare 拦截页 → 不弹（交给原有 Cf 通道）\n  · 返回内容含「已签到」 → 不弹（今天签过了）\n  · 其余一切情况        → 弹验证窗\n不再依赖具体关键词，站点换文案也不会漏判。\n\n【顺带修的两个小问题】\n1. 上一版判定函数里 body 判空跳转方向写反了，body 为空会崩，已改正\n2. 上一版日志把返回结果整体吞掉（只打 result=），这版补齐：\n   http= / bodyLen= / turnstile= / verify= / already= / message= / note=\n   / bodyHead(前120字)\n   不再记账号、Cookie、Authorization、令牌原文\n\n【小刀】这一版没动。\n\n升级后进微云点「一键签到」：\n· 该弹窗就会弹，过一次后面账号自动复用同一窗口\n· 如果仍然不弹，把「运行日志」里带「签到诊断」的条目发出来，\n  这版日志会带上真实文案，一次就能定位",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v136.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v136.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v136.apk",
+  "versionCode": 137,
+  "versionName": "137.0",
+  "notes": "v137 修复（微云签到 pow_failed）\n【真正的根因】\n站点这轮把防护从 Turnstile 换成了 PoW（工作量证明）。\n签到接口要求带上两个请求头：\n  X-Pow-Token  +  X-Pow-Nonce\n没带就返回：{\"code\":\"pow_failed\",\"message\":\"Security check failed...\"}\n\n人家的日志已经抓到了这个回包，只是上一版没读到 —— 上一版还在弹 Turnstile 窗，\n而站点 turnstile_check=false，所以窗口里显示「无法连接到网站」。\n\n【PoW 是怎么算的】\n1. 先请求 /api/pow/challenge?purpose=checkin\n   拿到 seed、difficulty、token\n2. 本地暴力找 nonce n，使：\n   SHA256(seed + \":\" + n) 的前 4 字节（大端）前导零位数 >= difficulty\n3. 带 X-Pow-Token: token、X-Pow-Nonce: n 去签到\n\n这套算法人家从站点前端 worker 里逆出来，并用 Python 独立实现跑了难度\n1~20 全部自洽，难度 20 约 0.6 秒。\n\n【这一版做了什么】\n1. 新增 PoW 计算与请求头注入\n2. 签到前自动取挑战、算 nonce\n3. 万一返回 pow_failed，自动重取挑战重算，最多重试 2 次（共 3 次请求）\n4. pow_failed 不再触发 Turnstile 窗（那个窗现在没用了）\n5. 保留 Turnstile 分支：万一站点切回去，仍能走老路\n\n【日志会多这几条】\n· pow=armed difficulty=N nonce=M   → PoW 算成功\n· pow=absent                        → 站点这次没要求 PoW\n· pow_retry=1 / 2                   → 触发了自动重试\n\n【小刀】这一版没动。\n\n升级后进微云点「一键签到」，应该能直接签上了。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v137.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v137.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v137.apk",
   "size": 5237790,
-  "sha256": "72e124f66390b811f3aaa25eb63773fcdf15a0887b99be0bb46878c9ee342f7e"
+  "sha256": "a6f25af270305780c12321743c5b018fd4ccbdbeca71038143c3509d94a16161"
 }
