@@ -1,10 +1,10 @@
 {
-  "versionCode": 135,
-  "versionName": "135.0",
-  "notes": "v135 诊断版（微云签到「验证没通过」定位用）\n【这一版不改签到逻辑】\n只为看清楚失败发生在哪一步，加了脱敏日志。判定规则与 v134 完全一致，\n没有新增、删除、修改任何一条签到判断。\n\n【日志会记什么】\n· 签到请求是否带了验证令牌（present / empty）\n· 站点返回的 HTTP 码、响应长度\n· 返回内容里是否出现 turnstile、是否出现「验证」、是否出现「已签到」\n· 站点返回的 message / note\n· 判定结果 needsTurnstile=0 或 1\n· 验证窗口回调：token_callback=present / failure\n· 等待令牌结果：token_wait=got / empty / interrupted\n\n【日志不会记什么】\n账号、Cookie、Authorization、验证令牌原文、完整响应体，一概不记。\n\n【怎么看】\n升级后进微云 → 点「一键签到」，再把运行日志里带「签到诊断」的那几条发出来。\n按这几种情况就能直接定位：\n· http=401          → 登录凭证失效，重新登录账号\n· http=429          → 触发频率限制，等一会儿再签\n· turnstile=true    → 站点确实要验证，窗口应当弹出\n· verify=true 而 turnstile=false → 中文文案漏判，需要补关键字\n· proof=empty 且 needsTurnstile=0 → 压根没弹窗，判定条件要改\n· token_wait=empty → 窗口弹出但 45 秒没拿到令牌\n\n【小刀】这一版没动，维持 v131 行为。",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v135.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v135.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v135.apk",
+  "versionCode": 136,
+  "versionName": "136.0",
+  "notes": "v136 修复（微云「一键签到不弹验证窗」）\n【根因】\n签到失败后，app 需要判断「这次失败是不是因为要人机验证」。\n判断函数 needsTurnstile 只认三个关键词：Turnstile / turnstile / 验证。\n站点现在的失败文案里这三个词一个都没有，于是判定成「不需要验证」，\n窗口一次都不弹，直接拿空令牌去签到 —— 就失败。\n\n上一版主人看到的日志里，token_callback 和 token_wait 一条都没有，\n正好印证：弹窗流程根本没被调用过。\n\n【这版怎么改】\n把判断的默认值反过来：\n  · 结果是空            → 不弹\n  · 是 Cloudflare 拦截页 → 不弹（交给原有 Cf 通道）\n  · 返回内容含「已签到」 → 不弹（今天签过了）\n  · 其余一切情况        → 弹验证窗\n不再依赖具体关键词，站点换文案也不会漏判。\n\n【顺带修的两个小问题】\n1. 上一版判定函数里 body 判空跳转方向写反了，body 为空会崩，已改正\n2. 上一版日志把返回结果整体吞掉（只打 result=），这版补齐：\n   http= / bodyLen= / turnstile= / verify= / already= / message= / note=\n   / bodyHead(前120字)\n   不再记账号、Cookie、Authorization、令牌原文\n\n【小刀】这一版没动。\n\n升级后进微云点「一键签到」：\n· 该弹窗就会弹，过一次后面账号自动复用同一窗口\n· 如果仍然不弹，把「运行日志」里带「签到诊断」的条目发出来，\n  这版日志会带上真实文案，一次就能定位",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v136.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v136.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v136.apk",
   "size": 5237790,
-  "sha256": "8b91ee3f3a6ee3097dd3662376d8d189d9bb102937366b330a6f68e807b7c87a"
+  "sha256": "72e124f66390b811f3aaa25eb63773fcdf15a0887b99be0bb46878c9ee342f7e"
 }
