@@ -1,10 +1,10 @@
 {
-  "versionCode": 133,
-  "versionName": "133.0",
-  "notes": "v133 修复（v132 闪退紧急修复）\n【闪退】\n· v132 点进微云模块就闪退，原因是人家改签到校验那段时，\n  寄存器数量算少了一个：本该留 3 个临时寄存器，只写了 2 个，\n  结果临时值把传进来的参数对象覆盖成了 true/false，\n  系统校验器直接拒绝加载这个类，应用就崩了。\n· 现在把涉及到的 4 个方法寄存器数量都重新算对了，\n  并且加了一道自动检查：每次打包前扫全包 6296 个方法，\n  任何一个寄存器越界都会直接拦下来不发布。\n\n【微云 · 签到要求人机验证（v132 的功能，这版一起生效）】\n· 启动时读服务端 turnstile_check 开关；服务端说关就完全不弹验证窗。\n· 判断要不要验证前，先排除 Cloudflare 拦截页（它的 HTML 里也带 turnstile\n  字样，以前会被误判成要验证）。\n· 万一服务端真开了验证：第一次弹窗过完，窗口自动收起但留在后台，\n  后续账号在同一个窗口里静默换新令牌，不再一个个弹；\n  静默失败则 10 秒后自动把窗口重新显示出来让你补一次。\n\n【小刀】这一版没动，维持 v131 行为。\n\n升级后：进微云 → 先去「福利活动」过验证 → 退回控制页点「一键签到」，\n应该直接开始签、不再弹验证窗。",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v133.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v133.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v133.apk",
+  "versionCode": 134,
+  "versionName": "134.0",
+  "notes": "v134 修复（微云签到「验证没通过」）\n【为什么 v132/v133 还是签不了】\n· 人家上一版干了一件错事：读到服务端 status 里 turnstile_check=false，\n  就以为「服务器不要验证了」，于是把弹验证窗的入口整个短路掉。\n  结果：一次窗都不弹，拿空校验值去签到，站点当然拒绝，\n  主人看到的就是「安全验证没通过」。\n· 那个 turnstile_check 只是全站开关，不代表签到这条请求不需要校验。\n  现在这个短路已经拆掉了。\n\n【这版怎么判断要不要弹】\n按顺序：\n  1. 结果为空 → 不弹\n  2. 结果是 Cloudflare 拦截页 → 不弹（交给原有的 Cf 通道处理）\n  3. 返回内容里有 Turnstile / turnstile → 弹\n  4. 返回内容里有「验证」二字、且不是「已签到」→ 弹   ← 新增，兜住中文文案\n  5. 其他 → 不弹\n\n【窗口还是只弹一次】\nv132 那半改动保留：第一次弹窗过完之后，窗口自动收起但不销毁，\n后续账号在同一个窗口里静默换新令牌，不再一个个弹；\n静默拿不到就 10 秒后自动把窗口再显示出来让你补一次。\n\n【小刀】这一版没动，维持 v131 行为。\n\n升级后：进微云 → 点「一键签到」，该弹就弹一次，过完后面的账号自动复用。\n如果已经不弹了，说明服务端确实放行，会直接开始签。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v134.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v134.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v134.apk",
   "size": 5237790,
-  "sha256": "aaee1d52a9fa3812abab8eaeaf299388ec70cf390338ab1699b41ff3af55d8b0"
+  "sha256": "ba774ae7a7bd377ef06c22b548da5a54d154b058e08ad83c0116e78f63d712a2"
 }
