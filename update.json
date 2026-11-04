@@ -1,10 +1,10 @@
 {
-  "versionCode": 131,
-  "versionName": "131.0",
-  "notes": "v131 修复\n\n【小刀 · 验证窗口仍然反复弹】\n· 根因：验证通过后窗口被置空了引用，下次取凭证又走重建分支，等于又弹一次。\n  现在改为只隐藏、不销毁，整个批量过程里窗口只弹一次。\n· 后续每个账号都在同一个窗口里静默换新凭证，不再打扰你。\n\n【小刀 · 一键签到会重复签已签过的账号】\n· 以前点一键签到，会把所有启用账号从头签一遍，今天已经签过的也照签，\n  白白浪费时间。\n· 现在会自动跳过「今天已签到」的账号，只处理还没签的。\n  例：6 个账号里今天签了 2 个，点一键签到只会处理剩下 4 个。",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v131.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v131.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v131.apk",
+  "versionCode": 132,
+  "versionName": "132.0",
+  "notes": "v132 修复\n【微云 · 签到要求人机验证（重点）】\n· 以前：先去「福利活动」过掉验证 → 退出 → 点「一键签到」，就能全部签完。\n· 最近变成：福利活动过完了，点一键签到还提示要过人工验证。\n\n原因有两个，都在 app 侧：\n1) 判断「要不要弹验证窗口」时，只看服务器回的内容里有没有 turnstile 这个词。\n   但 Cloudflare 的拦截页 HTML 里本身就带 turnstile 脚本，于是被误判成\n   「需要验证」，白白弹了一次窗。\n2) app 从来没读服务器 /api/status 里那个 turnstile_check 开关。\n   人家实测这个开关现在是 false（服务端已经关闭 Turnstile 校验），\n   app 却还在弹窗。\n\n现在：\n· 启动时会读服务器的 turnstile_check 开关；服务端说关，就完全不弹窗，\n  直接签到。\n· 判断要不要验证时，先把 Cloudflare 拦截页排除掉，不再误认。\n· 万一服务端真的开了验证：第一次弹窗过完之后，窗口自动收起但保留在后台，\n  后续账号在同一个窗口里静默换新令牌，不再一个个弹。\n  如果静默换令牌失败，10 秒后会自己把窗口重新显示出来让你补一次。\n\n【小刀 · 上次没解决的保留不动】\n· 一键签到跳过今日已签账号、验证窗口只弹一次、1.5 秒节流：维持 v131 行为，\n  这一版没改小刀。\n\n升级后第一次用：先去「福利活动」过掉验证（和以前一样），\n再回「控制」点「一键签到」，这一次应该直接开始签、不再弹验证。\n如果还是弹，说明服务端又把 turnstile_check 打开了，那就把验证过一次，\n后面的账号会自动复用。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v132.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v132.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v132.apk",
   "size": 5237790,
-  "sha256": "04db70032d5ae6a3e71557221ee590d1b8921de3095dfc8ac61fdb7cdd910b73"
+  "sha256": "2bc54a68741e07e1e0bfe50362800a4ebe2237527331d0ec0cf4d223dcff07e0"
 }
