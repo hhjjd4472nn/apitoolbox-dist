@@ -1,10 +1,10 @@
 {
-  "versionCode": 130,
-  "versionName": "130.0",
-  "notes": "v130 修复\n\n【小刀 · 只签到一个账号】\n· 上次只缓存了 token 字符串。但 Turnstile token 是一次性的，\n  拿同一个 token 去签第二个账号必然被拒——这就是「只签到一个」的原因。\n· 而且验证窗口拿到 token 后立刻销毁了，连再取一个的能力都没了。\n\n· 现在改成「验证窗口常驻」：\n  过得第一次验证后，窗口保留在后台不销毁；\n  后续每个账号都从同一个窗口里重新生成新的一次性凭证，\n  全程不再弹窗。15 个账号只需要你动一次。\n· 全部签完后窗口自动关闭释放内存。\n· 账号之间仍保留 1.5 秒间隔，不会被判请求过多。",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v130.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v130.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v130.apk",
+  "versionCode": 131,
+  "versionName": "131.0",
+  "notes": "v131 修复\n\n【小刀 · 验证窗口仍然反复弹】\n· 根因：验证通过后窗口被置空了引用，下次取凭证又走重建分支，等于又弹一次。\n  现在改为只隐藏、不销毁，整个批量过程里窗口只弹一次。\n· 后续每个账号都在同一个窗口里静默换新凭证，不再打扰你。\n\n【小刀 · 一键签到会重复签已签过的账号】\n· 以前点一键签到，会把所有启用账号从头签一遍，今天已经签过的也照签，\n  白白浪费时间。\n· 现在会自动跳过「今天已签到」的账号，只处理还没签的。\n  例：6 个账号里今天签了 2 个，点一键签到只会处理剩下 4 个。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v131.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v131.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v131.apk",
   "size": 5237790,
-  "sha256": "bccfdcf3afad1fc2ca90c69862acaa1362c33f83a0c1534a8ce64901e8c47644"
+  "sha256": "04db70032d5ae6a3e71557221ee590d1b8921de3095dfc8ac61fdb7cdd910b73"
 }
