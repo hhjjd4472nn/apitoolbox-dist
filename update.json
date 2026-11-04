@@ -1,10 +1,10 @@
 {
-  "versionCode": 129,
-  "versionName": "129.0",
-  "notes": "v129 修复\n\n【小刀 · 请求过多】\n· 批量签到原来两个账号之间零间隔，15 个账号几秒内发完，会被站点判成\n  「too many check-in attempts」而整批失败。现在每个账号之间间隔 1.5 秒，\n  稳稳签完不会触发限流。\n\n【小刀 · 已签到却显示未签】\n· 原因是批量被限流打断的账号，请求没成功、本地也没记录，卡片自然显示未签。\n  节流修好后这批会自动签上。\n· 另外「刷新状态」现在会把站点返回的今日是否已签同步回本地，\n  卡片状态以站点为准，不再只看本地记录。\n\n【小刀 · turnstile verification failed】\n· 这是人机校验凭证被站点拒绝。v128 已修好「只弹一次」的复用逻辑，\n  若仍出现，说明该账号的凭证已过期，重新点一次签到即可。",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v129.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v129.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v129.apk",
+  "versionCode": 130,
+  "versionName": "130.0",
+  "notes": "v130 修复\n\n【小刀 · 只签到一个账号】\n· 上次只缓存了 token 字符串。但 Turnstile token 是一次性的，\n  拿同一个 token 去签第二个账号必然被拒——这就是「只签到一个」的原因。\n· 而且验证窗口拿到 token 后立刻销毁了，连再取一个的能力都没了。\n\n· 现在改成「验证窗口常驻」：\n  过得第一次验证后，窗口保留在后台不销毁；\n  后续每个账号都从同一个窗口里重新生成新的一次性凭证，\n  全程不再弹窗。15 个账号只需要你动一次。\n· 全部签完后窗口自动关闭释放内存。\n· 账号之间仍保留 1.5 秒间隔，不会被判请求过多。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v130.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v130.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v130.apk",
   "size": 5237790,
-  "sha256": "f8a3be8f9efbd784a1b08b05ff080a89eed11cdd4666b1b8f4ea3311b8397639"
+  "sha256": "bccfdcf3afad1fc2ca90c69862acaa1362c33f83a0c1534a8ce64901e8c47644"
 }
