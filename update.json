@@ -1,10 +1,10 @@
 {
-  "versionCode": 134,
-  "versionName": "134.0",
-  "notes": "v134 修复（微云签到「验证没通过」）\n【为什么 v132/v133 还是签不了】\n· 人家上一版干了一件错事：读到服务端 status 里 turnstile_check=false，\n  就以为「服务器不要验证了」，于是把弹验证窗的入口整个短路掉。\n  结果：一次窗都不弹，拿空校验值去签到，站点当然拒绝，\n  主人看到的就是「安全验证没通过」。\n· 那个 turnstile_check 只是全站开关，不代表签到这条请求不需要校验。\n  现在这个短路已经拆掉了。\n\n【这版怎么判断要不要弹】\n按顺序：\n  1. 结果为空 → 不弹\n  2. 结果是 Cloudflare 拦截页 → 不弹（交给原有的 Cf 通道处理）\n  3. 返回内容里有 Turnstile / turnstile → 弹\n  4. 返回内容里有「验证」二字、且不是「已签到」→ 弹   ← 新增，兜住中文文案\n  5. 其他 → 不弹\n\n【窗口还是只弹一次】\nv132 那半改动保留：第一次弹窗过完之后，窗口自动收起但不销毁，\n后续账号在同一个窗口里静默换新令牌，不再一个个弹；\n静默拿不到就 10 秒后自动把窗口再显示出来让你补一次。\n\n【小刀】这一版没动，维持 v131 行为。\n\n升级后：进微云 → 点「一键签到」，该弹就弹一次，过完后面的账号自动复用。\n如果已经不弹了，说明服务端确实放行，会直接开始签。",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v134.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v134.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v134.apk",
+  "versionCode": 135,
+  "versionName": "135.0",
+  "notes": "v135 诊断版（微云签到「验证没通过」定位用）\n【这一版不改签到逻辑】\n只为看清楚失败发生在哪一步，加了脱敏日志。判定规则与 v134 完全一致，\n没有新增、删除、修改任何一条签到判断。\n\n【日志会记什么】\n· 签到请求是否带了验证令牌（present / empty）\n· 站点返回的 HTTP 码、响应长度\n· 返回内容里是否出现 turnstile、是否出现「验证」、是否出现「已签到」\n· 站点返回的 message / note\n· 判定结果 needsTurnstile=0 或 1\n· 验证窗口回调：token_callback=present / failure\n· 等待令牌结果：token_wait=got / empty / interrupted\n\n【日志不会记什么】\n账号、Cookie、Authorization、验证令牌原文、完整响应体，一概不记。\n\n【怎么看】\n升级后进微云 → 点「一键签到」，再把运行日志里带「签到诊断」的那几条发出来。\n按这几种情况就能直接定位：\n· http=401          → 登录凭证失效，重新登录账号\n· http=429          → 触发频率限制，等一会儿再签\n· turnstile=true    → 站点确实要验证，窗口应当弹出\n· verify=true 而 turnstile=false → 中文文案漏判，需要补关键字\n· proof=empty 且 needsTurnstile=0 → 压根没弹窗，判定条件要改\n· token_wait=empty → 窗口弹出但 45 秒没拿到令牌\n\n【小刀】这一版没动，维持 v131 行为。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v135.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v135.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v135.apk",
   "size": 5237790,
-  "sha256": "ba774ae7a7bd377ef06c22b548da5a54d154b058e08ad83c0116e78f63d712a2"
+  "sha256": "8b91ee3f3a6ee3097dd3662376d8d189d9bb102937366b330a6f68e807b7c87a"
 }
