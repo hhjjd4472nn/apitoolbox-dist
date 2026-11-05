@@ -1,10 +1,10 @@
 {
-  "versionCode": 137,
-  "versionName": "137.0",
-  "notes": "v137 修复（微云签到 pow_failed）\n【真正的根因】\n站点这轮把防护从 Turnstile 换成了 PoW（工作量证明）。\n签到接口要求带上两个请求头：\n  X-Pow-Token  +  X-Pow-Nonce\n没带就返回：{\"code\":\"pow_failed\",\"message\":\"Security check failed...\"}\n\n人家的日志已经抓到了这个回包，只是上一版没读到 —— 上一版还在弹 Turnstile 窗，\n而站点 turnstile_check=false，所以窗口里显示「无法连接到网站」。\n\n【PoW 是怎么算的】\n1. 先请求 /api/pow/challenge?purpose=checkin\n   拿到 seed、difficulty、token\n2. 本地暴力找 nonce n，使：\n   SHA256(seed + \":\" + n) 的前 4 字节（大端）前导零位数 >= difficulty\n3. 带 X-Pow-Token: token、X-Pow-Nonce: n 去签到\n\n这套算法人家从站点前端 worker 里逆出来，并用 Python 独立实现跑了难度\n1~20 全部自洽，难度 20 约 0.6 秒。\n\n【这一版做了什么】\n1. 新增 PoW 计算与请求头注入\n2. 签到前自动取挑战、算 nonce\n3. 万一返回 pow_failed，自动重取挑战重算，最多重试 2 次（共 3 次请求）\n4. pow_failed 不再触发 Turnstile 窗（那个窗现在没用了）\n5. 保留 Turnstile 分支：万一站点切回去，仍能走老路\n\n【日志会多这几条】\n· pow=armed difficulty=N nonce=M   → PoW 算成功\n· pow=absent                        → 站点这次没要求 PoW\n· pow_retry=1 / 2                   → 触发了自动重试\n\n【小刀】这一版没动。\n\n升级后进微云点「一键签到」，应该能直接签上了。",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v137.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v137.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v137.apk",
+  "versionCode": 138,
+  "versionName": "138.0",
+  "notes": "v138 修复（微云模块点进去就闪退）\n【闪退原因】\nv137 里人家在 PoW 计算里多写了一行\n  MessageDigest.reset()\nreset() 是没有参数的方法，只需要 1 个寄存器（对象自己），\n人家却传了 2 个进去。校验器在**加载类的时候**就把整个 Site 类拒绝了，\n所以点微云模块立刻闪退，还没进到任何业务逻辑。\n\n而这行本来就是多余的 —— digest() 每次调用完会自动重置。\n\n【这版怎么做】\n1. 删掉那行多余的 reset()\n2. 新增一个 invoke 参数个数校验器，打包前必跑：\n   它会按方法签名数出需要几个寄存器，和实际传的比，\n   不一致就报错并指出文件、行号、方法名\n3. 对产物 dex 反解后再跑一次同样的校验，双保险\n\n【PoW 功能本身不变】\n· 签到前自动取 /api/pow/challenge?purpose=checkin\n· 本地算 nonce（SHA256(seed+\":\"+n) 前 4 字节前导零 >= difficulty）\n· 请求头带 X-Pow-Token / X-Pow-Nonce\n· pow_failed 自动重试，最多 3 次请求\n· pow_failed 不再触发那个没用的 Turnstile 窗\n\n【小刀】这一版没动。\n\n升级后点微云模块应该不再闪退，点「一键签到」会先打\npow=armed difficulty=N nonce=M，然后签到。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v138.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v138.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v138.apk",
   "size": 5237790,
-  "sha256": "a6f25af270305780c12321743c5b018fd4ccbdbeca71038143c3509d94a16161"
+  "sha256": "d4b1d903e1bdc4a78e9e0c81c097c844128366a6159048f98d4df71b288db817"
 }
