@@ -1,10 +1,10 @@
 {
-  "versionCode": 139,
-  "versionName": "139.0",
-  "notes": "v139 修复（微云签到 pow_failed：PoW 一直是空转）\n【为什么前两版没用】\nv137/v138 虽然写了 PoW 计算，但里面 8 处判断的跳转方向全写反了，\n导致算 nonce 的代码一次都没真正跑过 —— 每回都直接跳去「失败」出口，\n打一条 pow=absent 就结束，请求头自然永远带不上去，站点一直回 pow_failed。\n\n具体这 8 处：\n· 拿到 challenge 对象（非空）→ 被判成失败\n· 拿到 body（非空）→ 被判成失败\n· enabled 为 true → 被判成失败\n· token / seed / difficulty 都有值 → 被判成缺失\n· nonce 算出来了 → 被判成算不出\n· digest 创建成功 → 被判成创建失败\n· 循环上限判断反了，第一圈就退出\n\n【这版怎么改】\n把这 8 处跳转方向全部修正。算法本身没动，还是：\n  GET /api/pow/challenge?purpose=checkin\n  nonce 使 SHA256(seed + \":\" + n) 前 4 字节前导零 >= difficulty\n  请求头带 X-Pow-Token / X-Pow-Nonce\n\n【这次怎么保证不空转】\n新写了一份逐条指令翻译的真值表（38 项）：\n· 难度 1~20 全部要能解出 nonce 且自洽\n· 用站点真实 seed + 真实难度 18 验证能解\n· powArm 的 8 条失败分支逐条验证（只有真缺失才失败）\n· 端到端：挑战 → 算 nonce → 按站点同算法复核通过\n全部通过才打包。\n\n【日志会明确告诉你 PoW 有没有真跑】\n· pow=armed difficulty=18 nonce=123456   ← 真跑了\n· pow=absent                              ← 还是没跑（这版不该再出现）\n\n【小刀】这一版没动。",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v139.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v139.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v139.apk",
+  "versionCode": 140,
+  "versionName": "140.0",
+  "notes": "v140 诊断版（微云 pow=absent 定位）\n【为什么要这一版】\n之前每次签到都只打一句 pow=absent，看不出到底卡在哪一步。\n这版把取 PoW 挑战的 8 个失败原因分开打：\n  pow=fail:result-null      取挑战返回空对象\n  pow=fail:body-null        返回没有内容\n  pow=fail:not-enabled      站点返回 enabled != true\n  pow=fail:no-token         缺 token 字段\n  pow=fail:no-seed          缺 seed 字段\n  pow=fail:no-difficulty    缺 difficulty 字段\n  pow=fail:solve-timeout    算不出 nonce\n  pow=fail:exception;msg=   抛异常\n每一条都会同时带上站点的原始响应：\n  http=<状态码>;bodyHead=<响应前150字>\n\n【成功时长这样】\n  pow=armed difficulty=18 nonce=123456\n\n【这一版不改签到逻辑】\n只是把日志写细。签到请求、PoW 算法都没动。\n\n【小刀】没动。\n\n升级后进微云点「一键签到」，把 pow= 开头的那几条发出来就行。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v140.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v140.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v140.apk",
   "size": 5237790,
-  "sha256": "1bc73182806944b8118865aea3f0697236907094e46b51c1ad528a26ed37cf86"
+  "sha256": "aa0213c5492a2513f49b60e0f709c2023a1ca41b7b392d2677c25db81bc38e7f"
 }
