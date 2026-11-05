@@ -1,10 +1,10 @@
 {
-  "versionCode": 138,
-  "versionName": "138.0",
-  "notes": "v138 修复（微云模块点进去就闪退）\n【闪退原因】\nv137 里人家在 PoW 计算里多写了一行\n  MessageDigest.reset()\nreset() 是没有参数的方法，只需要 1 个寄存器（对象自己），\n人家却传了 2 个进去。校验器在**加载类的时候**就把整个 Site 类拒绝了，\n所以点微云模块立刻闪退，还没进到任何业务逻辑。\n\n而这行本来就是多余的 —— digest() 每次调用完会自动重置。\n\n【这版怎么做】\n1. 删掉那行多余的 reset()\n2. 新增一个 invoke 参数个数校验器，打包前必跑：\n   它会按方法签名数出需要几个寄存器，和实际传的比，\n   不一致就报错并指出文件、行号、方法名\n3. 对产物 dex 反解后再跑一次同样的校验，双保险\n\n【PoW 功能本身不变】\n· 签到前自动取 /api/pow/challenge?purpose=checkin\n· 本地算 nonce（SHA256(seed+\":\"+n) 前 4 字节前导零 >= difficulty）\n· 请求头带 X-Pow-Token / X-Pow-Nonce\n· pow_failed 自动重试，最多 3 次请求\n· pow_failed 不再触发那个没用的 Turnstile 窗\n\n【小刀】这一版没动。\n\n升级后点微云模块应该不再闪退，点「一键签到」会先打\npow=armed difficulty=N nonce=M，然后签到。",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v138.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v138.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v138.apk",
+  "versionCode": 139,
+  "versionName": "139.0",
+  "notes": "v139 修复（微云签到 pow_failed：PoW 一直是空转）\n【为什么前两版没用】\nv137/v138 虽然写了 PoW 计算，但里面 8 处判断的跳转方向全写反了，\n导致算 nonce 的代码一次都没真正跑过 —— 每回都直接跳去「失败」出口，\n打一条 pow=absent 就结束，请求头自然永远带不上去，站点一直回 pow_failed。\n\n具体这 8 处：\n· 拿到 challenge 对象（非空）→ 被判成失败\n· 拿到 body（非空）→ 被判成失败\n· enabled 为 true → 被判成失败\n· token / seed / difficulty 都有值 → 被判成缺失\n· nonce 算出来了 → 被判成算不出\n· digest 创建成功 → 被判成创建失败\n· 循环上限判断反了，第一圈就退出\n\n【这版怎么改】\n把这 8 处跳转方向全部修正。算法本身没动，还是：\n  GET /api/pow/challenge?purpose=checkin\n  nonce 使 SHA256(seed + \":\" + n) 前 4 字节前导零 >= difficulty\n  请求头带 X-Pow-Token / X-Pow-Nonce\n\n【这次怎么保证不空转】\n新写了一份逐条指令翻译的真值表（38 项）：\n· 难度 1~20 全部要能解出 nonce 且自洽\n· 用站点真实 seed + 真实难度 18 验证能解\n· powArm 的 8 条失败分支逐条验证（只有真缺失才失败）\n· 端到端：挑战 → 算 nonce → 按站点同算法复核通过\n全部通过才打包。\n\n【日志会明确告诉你 PoW 有没有真跑】\n· pow=armed difficulty=18 nonce=123456   ← 真跑了\n· pow=absent                              ← 还是没跑（这版不该再出现）\n\n【小刀】这一版没动。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v139.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v139.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v139.apk",
   "size": 5237790,
-  "sha256": "d4b1d903e1bdc4a78e9e0c81c097c844128366a6159048f98d4df71b288db817"
+  "sha256": "1bc73182806944b8118865aea3f0697236907094e46b51c1ad528a26ed37cf86"
 }
