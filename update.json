@@ -1,10 +1,10 @@
 {
-  "versionCode": 140,
-  "versionName": "140.0",
-  "notes": "v140 诊断版（微云 pow=absent 定位）\n【为什么要这一版】\n之前每次签到都只打一句 pow=absent，看不出到底卡在哪一步。\n这版把取 PoW 挑战的 8 个失败原因分开打：\n  pow=fail:result-null      取挑战返回空对象\n  pow=fail:body-null        返回没有内容\n  pow=fail:not-enabled      站点返回 enabled != true\n  pow=fail:no-token         缺 token 字段\n  pow=fail:no-seed          缺 seed 字段\n  pow=fail:no-difficulty    缺 difficulty 字段\n  pow=fail:solve-timeout    算不出 nonce\n  pow=fail:exception;msg=   抛异常\n每一条都会同时带上站点的原始响应：\n  http=<状态码>;bodyHead=<响应前150字>\n\n【成功时长这样】\n  pow=armed difficulty=18 nonce=123456\n\n【这一版不改签到逻辑】\n只是把日志写细。签到请求、PoW 算法都没动。\n\n【小刀】没动。\n\n升级后进微云点「一键签到」，把 pow= 开头的那几条发出来就行。",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v140.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v140.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v140.apk",
+  "versionCode": 141,
+  "versionName": "141.0",
+  "notes": "v141 修复版（微云签到 PoW 真正修好 + 全链路日志）\n\n【真正的原因：3 处判断方向写反了】\n取到 PoW 挑战后，代码用 \"-\".equals(token) 判断字段是否缺失。\nequals 返回 false 表示【字段有值】，应该继续往下走；\n但代码写成了 if-nez（为 0 就跳失败），\n结果 token / seed / difficulty 三个字段明明都取到了，\n却被判成「缺失」，签到在第一步就退出。\nv139 只修了 5 处，这 3 处一直漏着。\n\n【为什么日志显示 no-token】\n因为 \"-\".equals(真实token) 返回 false，\n走 if-nez 后直接跳到 no-token 分支，\n所以每次都打 pow=fail:no-token，看上去像站点没给 token。\n（已用站点真实响应验证：token、seed、difficulty 全都正常解析出来）\n\n【为什么日志后面没有 http= 和 bodyHead=】\npowFail 里也有 2 处判断反了：\n  if-nez p1   → result 非空时【跳过】拼接\n  if-nez v2   → body   非空时【跳过】拼接\n所以最该看的信息全被跳过，只剩一个裸 tag。\n这版一并修正，失败时一定会带上：\n  http=<状态码>;bodyHead=<响应前150字>\n\n【这一版把日志一次加满】\n  checkin=begin  签到入口：bearer长度 / cookie长度 / userId\n  pow=arm        开始取挑战\n  pow=challenge  挑战响应原文（http + body 前300字）\n  pow=fields     三个字段解析结果\n  pow=solve      求解结果\n  pow=inject     每次发请求前：armed / token长度 / nonce长度\n  pow=armed      成功：difficulty=18 nonce=xxxxx\n  pow=fail:<tag> 失败：细分原因 + http + bodyHead\n\n【算法已对站点实测验证】\n用站点真实 seed + 难度18 求解，nonce=171048，\n与浏览器抓包里 x-pow-nonce 完全一致。\n\n【小刀】没动。\n升级后进微云点「一键签到」，正常应该直接签到成功。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v141.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v141.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v141.apk",
   "size": 5237790,
-  "sha256": "aa0213c5492a2513f49b60e0f709c2023a1ca41b7b392d2677c25db81bc38e7f"
+  "sha256": "408cc8ea7b8bf2fb3d261ea433b254a1b5a53a4455f09c5cd6a2d51a851462cb"
 }
