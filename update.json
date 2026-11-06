@@ -1,10 +1,10 @@
 {
-  "versionCode": 144,
-  "versionName": "144.0",
-  "notes": "v144 微云签到认证修复\n\n【本次实际改动】\n1. 保留每个账号自己的完整 Cookie，全局 CF 缓存只补充 Cloudflare 通关项，不带入其他账号的 session。\n2. 签到前检查网页登录会话，/api/user/self 返回的账号 ID 必须与目标账号一致。\n3. 若已保存会话不可用，只在本机缓存会话通过同 ID 检查后恢复；不匹配绝不借用。\n4. 网页添加账号先验证该会话可取得 checkin 挑战，再保存完整 session，避免残缺 Cookie 覆盖原账号。\n5. 取挑战明确未登录时停止裸签到重试，给出准确的更新登录会话提示。\n6. PoW 仅在匹配账号的签到 POST 中注入；每次重试重新取挑战，最多三次提交，结束时清理。\n\n【验证事实】\nAndroid 36 独立 app_process 加载最终 dex，46 项实际运行回放通过。\n用同一测试器重现 v142 的 0x36 VerifyError，确认测试能捕获历史故障。\n真实站点核对抓包账号的 ID、查询当天状态，并使用最终 dex 提交签到：HTTP 200，返回 Already checked in today（今天已签到）。\n最终 APK 内 dex 与上述真机测试及联调 dex 的 SHA-256 相同。\n\n【旧账号说明】\n仅有 Bearer 或 cf_clearance、没有有效网页登录 session 的账号无法凭空恢复登录态。\nv144 会先尝试本机同 ID 会话；若仍提示会话缺失或失效，请在微云添加账号页重新登录该账号一次。\n这不是要求重新添加全部账号；已有效的会话会继续复用。\n\n没有替用户安装或启动主 App；小刀和其他模块未改动。\n本次真实站点只验证了一个抓包账号，不能代表其他旧账号的会话仍有效。",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v144.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v144.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v144.apk",
-  "size": 5241886,
-  "sha256": "15539e4ecccbab27bc648d93f24a5016f38a3022706347a4db2c2bd9ea7f2e69"
+  "versionCode": 145,
+  "versionName": "145.0",
+  "notes": "v145 微云福利：每日自动签到 + 统一密码/重新登录\n\n【每日自动签到】\n- 福利活动页新增卡片，可开关并设置每天签到时间（默认 01:00，北京时间）。\n- 独立于自动翻牌：翻牌前不会补签到，也不会被翻牌次数触发。\n- 每个账号独立记录当日状态：已签到直接跳过，不重复提交。\n- 失败按“最多 3 次、间隔 5 分钟”重试；次数用完只标记该账号，其他账号继续。\n- 会话失效的账号停止本日尝试并提示重新登录，不会反复无效请求。\n- 开机、应用更新、改时间/时区后重新设置每日闹钟；打开福利页会补跑当天未完成账号。\n\n【统一密码 / 一键重新登录】\n- 支持先检查账号：可首设 / 已有密码 / 会话无效。\n- 已有密码账号不会被“首设”覆盖；修改已有密码需要填写原密码。\n- 批量重新登录会获取 purpose=login 挑战、提交账号密码、核对返回账号 ID；\n  成功后更新该账号会话，2FA、ID 不匹配、失败都不会覆盖原会话。\n- 明文密码不写入账号库，只在本次操作内存中使用。\n\n【本轮验证】\n- Android 36 真机独立进程加载最终 dex：14/14 类通过 ART 类加载。\n- 12 项行为检查通过（01:00 调度、跨日推进、Cookie 不串号、重复 Cookie 合并、ID 校验等）。\n- 最终 APK 内 dex 与上述测试 dex 字节一致；寄存器与 invoke 检查通过。\n- 最终封包 12 项复核通过，签名 v1/v2/v3 有效，证书与旧版本一致。\n\n【尚未验证】\n- 真实账号上的“修改密码 / 批量重新登录”未执行（避免误改账号）。\n- 实际跨夜定时运行需要升级后由系统自然触发一次才能确认。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v145.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v145.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v145.apk",
+  "size": 5258270,
+  "sha256": "f38f176d9a0b1a7167d720e08c20162b414c39f87457f04ef10b02d7173d4abf"
 }
