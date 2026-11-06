@@ -1,10 +1,10 @@
 {
-  "versionCode": 152,
-  "versionName": "152.0",
-  "notes": "v152 修复：自动签到「到点没跑」+ 新增立即执行 + 修翻牌被吞\n【一、为什么 18:11 到点没触发】\n两个原因叠加：\n1) 当时装的还是 v150，AutoGwentReceiver 因参数寄存器类型错误被 ART 拒绝，\n   闹钟到点没人接（v151 已修，本轮继续保留）；\n2) v151 在 onReceive 里把 onBroadcast 的返回值判断写成了 if-nez，\n   于是「不是签到广播」的其它广播（含自动翻牌）全部被直接 return 掉；\n   同时 setTime 时若该时刻今天已过，就直接排到明天，不会补跑。\n【修复一：接收器分支】\nonBroadcast 返回 true（确实是签到广播）才提前 return，否则继续走翻牌流程，\n自动翻牌恢复。\n【修复二：新增「立即执行一次」】\n签到卡片底部加按钮，点了就起后台线程跑一批，不必等定时；\n4 秒后自动刷新「上次结果」，可立刻验证整条链路。\n【修复三：错过就补跑】\n打开福利页时若「今天的时间点已过且还有账号未签」，立即补跑一次，\n不再默默等到明天。\n【修复四：日志补全】\n闹钟触发、补跑、手动执行、批次开始（日期 + 待处理账号数）都写进运行日志，\n下次任何一环断开都能直接看出来。\n【本轮验证】\n- Android 36 真机 ART：receiver 组 3 项全过（AutoGwentReceiver 可实例化 =\n  ART 真正校验通过、onReceive 签名正确、依赖类可校验）。\n- 汇编 1342 类；寄存器 / invoke / ScrollView 三道静态校验全绿\n  （1342 文件 / 6518 方法 / 45886 处 invoke）。\n- 最终 APK 反解 24 项全 PASS：p2 仍只作 Intent 用、v151 的参数写错已消失、\n  onBroadcast 后是「为真才 return」、翻牌两个调用都在、\n  立即执行按钮已接线、Worker 线程仍在、v146–v151 修复全部保留、\n  APK dex 与受测 dex 同哈希、manifest 152.0。\n- 签名 v1/v2/v3 有效，证书与旧版一致，可覆盖升级。\n【说明】\n真机上「立即执行一次」需要点一下才会真正发请求；\n定时触发的首次自然验证仍要看下一个设定时刻。",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v152.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v152.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v152.apk",
+  "versionCode": 153,
+  "versionName": "153.0",
+  "notes": "v153 修复：点「立即执行一次」后一直卡住不动\n【一、为什么卡住】\n两个原因：\n1) v152 的 runNow 虽然绕过了开关，但 execute() 循环开头还有\n   if(!enabled(c)) break; —— 开关没开时整批立刻空转结束，\n   而界面那句「已开始，几秒后回来看」是点击时写死的，之后没人刷新，\n   于是看起来永远卡在那一句。\n2) 就算开关开着，15 个账号 × 每号最多 3 次请求 × 每次最长 15s 连接 + 20s 读取，\n   网络一慢就是二三十分钟，中间没有任何进度输出，等同于卡死。\n【修复一：真正强制执行】\n新增 execute(Context, boolean force)；「立即执行一次」走 force=true：\n不看开关、也不看「今天已处理」状态，直接把所有可用账号重跑一遍。\n【修复二：实时进度】\n每处理一个账号就写一次进度：正在处理 3/15：账号名（成功x 跳过x 失败x）；\n界面每秒刷新一次进度和「上次结果」，再也不会看起来卡死。\n【修复三：总时长上限 120 秒】\n超过上限就把剩余账号标为「本批超时未处理，稍后重试」并收尾，\n绝不无限拖；数量多时会自动分摊到下一轮。\n【修复四：网络预检】\n批次开始先用 4 秒探测 vsllm.cc:443，连不上直接显示\n「网络不可用（连不上 vsllm.cc）」并结束，不再发一堆注定超时的请求。\n【修复五：耗时透明】\n汇总里加「总耗时 N 秒，最慢 <账号>（M 秒）」，一眼看出是哪个账号拖慢。\n【本轮验证】\n- Android 36 真机 ART：9 项全过（预算常量 120000、execute 带 force、\n  progress / siteReachable / allUsable / launch(Context,boolean) 均存在、\n  进度 key 与 progressText 已发布、AutoGwentReceiver 仍可实例化无 VerifyError）。\n- 汇编 1342 类；寄存器 / invoke / ScrollView 三道静态校验全绿。\n- 最终 APK 反解 27 项全 PASS：force 路径、进度 key、每秒刷新、2 分钟提示、\n  v146–v152 修复全部保留，APK dex 与受测 dex 同哈希，manifest 153.0。\n- 签名 v1/v2/v3 有效，证书与旧版一致，可覆盖升级。\n【说明】\n「立即执行一次」不再受开关与当日状态限制，点了就真跑；\n进度行会持续变化，若显示「网络不可用」请先检查网络。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v153.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v153.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v153.apk",
   "size": 5262366,
-  "sha256": "c756b0de21a86a0f0b0308f5d2d09a9f5a843b0686fb527657b71007d14137aa"
+  "sha256": "7c4930511e0c0e4c49979af18b84017d77d605286d1762074b9d7bceb47cf65c"
 }
