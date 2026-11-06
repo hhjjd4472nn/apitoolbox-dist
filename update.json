@@ -1,10 +1,10 @@
 {
-  "versionCode": 146,
-  "versionName": "146.0",
-  "notes": "v146 修复：点福利活动闪退\n\n【崩溃原因】\nv145 在福利页把「每日自动签到」和「统一密码」两张卡片\n直接加到了 ScrollView 上。ScrollView 只能有一个直接子 View，\n第二个 addView 直接抛：\n  IllegalStateException: ScrollView can host only one direct child\n对应崩溃位置 EventActivity.ui(EventActivity.java:524)。\n\n【修复】\n- 两张卡片改为加入 ScrollView 内部的纵向 LinearLayout；\n- ScrollView 只保留一次 addView；\n- 新增 ScrollView 单子节点静态校验，防止同类问题再次出现。\n\n【本轮验证】\n- Android 36 真机独立进程加载最终 dex：14/14 类通过 ART 类加载。\n- 最终 APK 反解确认：ui() 内 ScrollView.addView 仅 1 次，\n  两张卡片均加入内容容器。\n- ScrollView 单子节点检查、寄存器检查、invoke 参数检查全部通过。\n- 签名 v1/v2/v3 有效，证书与旧版一致，可覆盖升级。\n\n【功能沿用 v145】\n- 每日自动签到：默认 01:00（北京时间），可改；已签到跳过；\n  失败最多 3 次、间隔 5 分钟；与自动翻牌互相独立。\n- 统一密码 / 批量重新登录：首设不覆盖已有密码；\n  改已有密码需原密码；登录成功并核验账号 ID 后才更新会话。\n\n【尚未验证】\n- 真实账号上的修改密码、批量重新登录未执行。\n- 自动签到跨夜实际触发需升级后自然运行一次确认。",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v146.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v146.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v146.apk",
+  "versionCode": 147,
+  "versionName": "147.0",
+  "notes": "v147 修复：密码操作全部 401、签到异常不可读、浅色模式看不清\n【一、密码操作全部 401（决定性）】\n截图里 15 个账号全部报：\n  Unauthorized, New-Api-User header not provided\n站点是 new-api 部署，dashboard 类接口要求请求头 New-Api-User\n携带当前账号 id。v145/v146 的 Http145 只发了\nUA/Accept/Content-Type/Referer/Origin/Cookie/Authorization，\n没有这个头，因此「检查 / 首设 / 改密 / 重新登录」四个按钮\n无论密码对错都必然失败。\n修复：Http145.send 增加 userId 形参并下发 New-Api-User；\n      7 处调用点全部按语义传入（账号类接口传该账号 userId，\n      登录挑战与登录本身传 null，登录后校验 /api/user/self 传期望 id）。\n【二、自动签到只显示「异常：FlowFailure」】\nDailySigninRunner145 的 catch 只打印异常类名，把 FlowFailure\n携带的 message 与 code 全吞掉，看不出到底是会话失效还是别的。\n修复：FlowFailure 分支打印 message + code，前缀「会话不可用：」；\n      其它异常打印类名 + message，并把结果写回该账号状态。\n【三、浅色（阳光）模式按钮字看不清】\n两张卡片文字颜色硬编码 Color.WHITE / 0xffcccccc，不随主题变化。\n修复：全部改用 Style.TEXT / Style.TEXT_SOFT / SURFACE /\n      SURFACE_MUTED 与 Style.card() / Style.pill()，跟随明暗模式。\n【四、时间行布局被挤坏】\n开关用 weight=1 吃掉剩余宽度，时间输入框固定 100px、按钮 wrap，\n结果时间框被压成一条线、按钮被挤出屏幕，等于无法设置时间。\n修复：拆两行——开关独占一行；时间输入框与应用按钮并排一行，\n      输入框给 weight、按钮 wrap，不再互相抢宽度。\n【五、两张卡片没有背景】\n裸 LinearLayout，浅色下看不出卡片边界。\n修复：两张卡片都套 Style.card(context, SURFACE, SURFACE_MUTED)。\n【本轮验证】\n- 真机 Android 36 ART 独立进程加载最终 dex：15/15 项通过\n  （含 Http145.send 8 参数、FlowFailure code 可读、\n   会话不串号、01:00 定时、两个 UI 类 build 方法存在）。\n- 三个静态校验全绿：寄存器定义检查、invoke 参数检查、\n  ScrollView 单子节点检查（1338 文件 / 6495 方法）。\n- 最终 APK 反解核对 15 项：New-Api-User 头存在、FlowFailure\n  code/message 均被打印、ui() 内 ScrollView.addView 仅 1 次、\n  两个 UI 类 Style 引用 29/37 处且无硬编码色值、\n  PasswordBatch 7 处 send 调用、APK 内 dex 与测试 dex 同一哈希。\n- 签名 v1/v2/v3 有效，证书与旧版一致，可覆盖升级。\n【功能沿用】\n- 每日自动签到：默认 01:00（北京时间），可改；已签到跳过；\n  失败最多 3 次、间隔 5 分钟；与自动翻牌互相独立。\n- 统一密码 / 批量重新登录：首设不覆盖已有密码；改已有密码需原密码；\n  登录成功并核验账号 ID 后才更新会话。\n【尚未验证】\n- 真实账号上的「修改密码」「批量重新登录」本轮仍未执行。\n- 自动签到跨夜实际触发需升级后自然运行一次确认。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v147.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v147.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v147.apk",
   "size": 5258270,
-  "sha256": "e94068b3043d6732465f94baddb7f6535516491ae39c0e1d3e2d6ea4dcf7a1f5"
+  "sha256": "5a13b060c521ce0e759163b145f583cf2f0d22b66c5bc8a3c1f88bc677ba74ae"
 }
