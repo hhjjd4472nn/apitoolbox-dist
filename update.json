@@ -1,10 +1,10 @@
 {
-  "versionCode": 145,
-  "versionName": "145.0",
-  "notes": "v145 微云福利：每日自动签到 + 统一密码/重新登录\n\n【每日自动签到】\n- 福利活动页新增卡片，可开关并设置每天签到时间（默认 01:00，北京时间）。\n- 独立于自动翻牌：翻牌前不会补签到，也不会被翻牌次数触发。\n- 每个账号独立记录当日状态：已签到直接跳过，不重复提交。\n- 失败按“最多 3 次、间隔 5 分钟”重试；次数用完只标记该账号，其他账号继续。\n- 会话失效的账号停止本日尝试并提示重新登录，不会反复无效请求。\n- 开机、应用更新、改时间/时区后重新设置每日闹钟；打开福利页会补跑当天未完成账号。\n\n【统一密码 / 一键重新登录】\n- 支持先检查账号：可首设 / 已有密码 / 会话无效。\n- 已有密码账号不会被“首设”覆盖；修改已有密码需要填写原密码。\n- 批量重新登录会获取 purpose=login 挑战、提交账号密码、核对返回账号 ID；\n  成功后更新该账号会话，2FA、ID 不匹配、失败都不会覆盖原会话。\n- 明文密码不写入账号库，只在本次操作内存中使用。\n\n【本轮验证】\n- Android 36 真机独立进程加载最终 dex：14/14 类通过 ART 类加载。\n- 12 项行为检查通过（01:00 调度、跨日推进、Cookie 不串号、重复 Cookie 合并、ID 校验等）。\n- 最终 APK 内 dex 与上述测试 dex 字节一致；寄存器与 invoke 检查通过。\n- 最终封包 12 项复核通过，签名 v1/v2/v3 有效，证书与旧版本一致。\n\n【尚未验证】\n- 真实账号上的“修改密码 / 批量重新登录”未执行（避免误改账号）。\n- 实际跨夜定时运行需要升级后由系统自然触发一次才能确认。",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v145.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v145.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v145.apk",
+  "versionCode": 146,
+  "versionName": "146.0",
+  "notes": "v146 修复：点福利活动闪退\n\n【崩溃原因】\nv145 在福利页把「每日自动签到」和「统一密码」两张卡片\n直接加到了 ScrollView 上。ScrollView 只能有一个直接子 View，\n第二个 addView 直接抛：\n  IllegalStateException: ScrollView can host only one direct child\n对应崩溃位置 EventActivity.ui(EventActivity.java:524)。\n\n【修复】\n- 两张卡片改为加入 ScrollView 内部的纵向 LinearLayout；\n- ScrollView 只保留一次 addView；\n- 新增 ScrollView 单子节点静态校验，防止同类问题再次出现。\n\n【本轮验证】\n- Android 36 真机独立进程加载最终 dex：14/14 类通过 ART 类加载。\n- 最终 APK 反解确认：ui() 内 ScrollView.addView 仅 1 次，\n  两张卡片均加入内容容器。\n- ScrollView 单子节点检查、寄存器检查、invoke 参数检查全部通过。\n- 签名 v1/v2/v3 有效，证书与旧版一致，可覆盖升级。\n\n【功能沿用 v145】\n- 每日自动签到：默认 01:00（北京时间），可改；已签到跳过；\n  失败最多 3 次、间隔 5 分钟；与自动翻牌互相独立。\n- 统一密码 / 批量重新登录：首设不覆盖已有密码；\n  改已有密码需原密码；登录成功并核验账号 ID 后才更新会话。\n\n【尚未验证】\n- 真实账号上的修改密码、批量重新登录未执行。\n- 自动签到跨夜实际触发需升级后自然运行一次确认。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v146.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v146.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v146.apk",
   "size": 5258270,
-  "sha256": "f38f176d9a0b1a7167d720e08c20162b414c39f87457f04ef10b02d7173d4abf"
+  "sha256": "e94068b3043d6732465f94baddb7f6535516491ae39c0e1d3e2d6ea4dcf7a1f5"
 }
