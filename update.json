@@ -1,10 +1,10 @@
 {
-  "versionCode": 154,
-  "versionName": "154.0",
-  "notes": "v154 修复：10 个账号点「领取」拿不到临时邮箱密钥（提示像「没有订阅余额」）\n【一、真实原因（只读实测，没动任何账号状态）】\n用抓包账号分别请求同一组接口：\n  GET /api/tempmail/state 仅 Cookie              → 401 New-Api-User header not provided\n  GET /api/tempmail/state Cookie + New-Api-User  → 200，data.api_key 有值\n  GET /api/tempmail/state 仅 New-Api-User        → 401 not logged in\n  POST /api/tempmail/v1/* Bearer <api_key>       → 200（余额正常）\n  POST /api/tempmail/v1/* Cookie + New-Api-User  → 401 Invalid API key\n结论：取密钥只认「该账号自己的 Cookie + New-Api-User」这个组合，\naccessToken（站点令牌）对 tempmail 接口完全无效。\n而旧代码调的是 fetchApiKey(accessToken, userId)，\n所以凡是 accessToken 已失效、但 Cookie 仍然有效的账号，全部拿不到密钥，\n并且被统一显示成「未开通订阅 / 没有余额」——这就是那 10 个账号的情况。\n【修复一：换凭证】\n新增 TempMailAuth154.fetchKey(cookie, userId)：\n先 POST /api/tempmail/key（沿用已有密钥或新建），\n再 GET /api/tempmail/state（通常直接带 api_key），\n密钥从 data.api_key 或 data.state.api_key 读取；\n请求头固定 Cookie + New-Api-User，另带 UA / Referer / Origin。\n领取按钮的调用点改为传 account.cookie（不再是 accessToken）。\n【修复二：失败原因不再骗人】\n之前一律写死「该账号可能未开通订阅」。\n现在按真实返回分类：\n- 该账号没有保存 Cookie，请重新登录该账号\n- 该账号缺少用户 ID，请重新登录该账号\n- 网络错误（连不上 vsllm.cc）\n- 会话已失效（401），请重新登录这个账号\n- 站点拒绝（403），请到网页端确认订阅\n- 该账号没有有效订阅\n- 今日免费额度已用完，明天再试或到套餐页开通\n- 其它：带 HTTP 状态码与站点 message\n【修复三：空态提示】\n临时邮箱空态原本写「通常是订阅过期或额度用完」，\n会先入为主把人往订阅上引；改成提示点「领取」后会显示具体原因。\n【本轮验证】\n- Android 36 真机 ART（实例化 + 反射实调）：9 项全过；\n  空 Cookie / 非法 userId 本地短路不联网；用抓包账号真机实取一次密钥，返回 tm- 开头的 key。\n- 汇编 1344 类 / 1406316 字节；寄存器 / invoke / ScrollView 三道静态校验全绿。\n- 最终 APK 反解 44 项全 PASS：Cookie+New-Api-User 头、两个接口路径、\n  六类失败原因文案、调用点不再出现 accessToken 与 fetchApiKey、\n  硬编码「未开通订阅」「订阅过期」已清除；v146–v153 全部修复保留；\n  APK dex 与受测 dex 同哈希，manifest 154.0。\n- 签名 v1/v2/v3 有效，证书与旧版本一致，可直接覆盖升级。\n【说明】\n改的是「怎么拿密钥」，不是放宽任何限制；\n以前因 accessToken 失效而失败的账号，装完这版再点一次「领取」应该就能拿到。\n如果仍失败，现在会直接告诉你具体是哪一类原因。",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v154.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v154.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v154.apk",
-  "size": 5262366,
-  "sha256": "74d55ab8d9c2f6b248c27da0e916af0a53dd91847a33487dcc6aeb6840c3278a"
+  "versionCode": 155,
+  "versionName": "155.0",
+  "notes": "v155：微云后台定时与小刀批量签到修复\n\n【微云】\n- 修复接收器提前返回：开机、应用升级、时间/时区变化时，恢复各自已开启的任务；每日签到与翻牌独立分流。\n- 每日签到交给专用前台服务执行，处理期间显示运行通知并持有有时限的唤醒锁，结束释放资源。\n- 增加五分钟恢复调度；任务意外终止后仍有再次检查的入口；成功结束后恢复正常定时。\n- 增加调度、广播到达、服务启动、结束与异常记录。界面展示精确定时、电池限制和最近广播时间。\n- 修正补跑的当天时刻判断；显示时间统一使用北京时间。\n\n【小刀】\n- 批次结束关闭窗口后清空对象，再次点击或取消后重试可以重新创建，不再依赖退出重进。\n- 同批保留验证窗口和 WebView，每次提交取得新的验证结果；不再无条件为每个账号重复显示窗口。需要人工交互时会显示确认窗口，不承诺站点始终只要求一次交互。\n- 普通批量签到改为串行队列，账号之间至少等待三秒。遇到 HTTP 429 尊重 Retry-After；无响应头时采用有上限的退避。\n- 当前账号最多额外重试两次，已签到账号跳过，失败/未处理账号单独列出。超过本批十分钟预算时结束并保留原因。\n- 取消验证结束本批；冷却期间不重复刷新全页，不向后续账号继续发送签到请求。\n- 单个账号和批量共用结果处理，保留 HTTP 状态及真实原因。\n\n【已实跑验证】\n- Android 真机 ART 隔离测试30项通过：广播分流、后台服务入队、时间计算、Retry-After、关闭窗口重建。\n- 模拟HTTP429的真实调用路径与批量状态测试9项通过：不记假成功、遵守响应头、有限重试、后续账号冷却。\n- 寄存器 / invoke / ScrollView 静态检查通过；签名v1/v2/v3有效，证书与v154一致。\n- 最终APK反解47项检查通过；APK内dex与受测候选一致，原有资源保持不变。\n\n【仍待实际验收】\n本轮没有安装或启动主应用，没有提交真实账号签到。锁屏到点、跨夜自然触发、真实八账号批量结果仍需升级后核对。不能以打开福利页后的补跑当成后台唤醒已通过。\n当前没有小刀失败账号的历史429响应，未将“疑似限流”认定为已证实原因。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v155.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v155.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v155.apk",
+  "size": 5270558,
+  "sha256": "6093ac5dd31a87e8aab124ca73993ef6b63441dcb23e647c151bf9b05a917b00"
 }
