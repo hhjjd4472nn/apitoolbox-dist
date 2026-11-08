@@ -1,10 +1,10 @@
 {
-  "versionCode": 157,
-  "versionName": "157.0",
-  "notes": "v157：修复微云邮件只有主题、没有正文，以及复制出占位提示的问题\n\n【确定根因】\n站点自己的临时邮箱API文档明确说明：GET /api/tempmail/v1/messages?since=0 返回最近20封邮件的摘要，不含正文；GET /api/tempmail/v1/messages/{id} 才返回完整邮件内容。官方网页也采用列表+详情两步读取。\nv156把列表摘要当成完整邮件，没有请求详情，导致看得到主题和发件人，却显示“该邮件未返回正文”。同时copyBody()把该提示当作正文返回，所以复制按钮复制了提示文字。\n\n【修复】\n- 点开一封邮件时，用这封邮件的ID和该邮箱密钥请求详情，显示加载状态，成功后更新正文、验证码、验证链接。\n- 正文未加载或实际为空时，禁用“复制正文”；复制函数也检查空内容，不再写入占位文字。\n- 加载失败显示真实错误和“重试加载正文”，限流时按等待时间冷却。\n- 正文成功加载后存入私有缓存；后续邮件摘要轮询不再清掉正文、验证码和验证链接。重进页面也可恢复已加载内容。\n- 切换邮件或邮箱时，旧响应不会填入错误窗口；关闭详情不再被旧回调重新填充。\n- 保留多封列表、持续收件、字母验证码解析，以及之前的后台签到和小刀修复。\n\n【验证】\n- 已读取站点官方文档和前端脚本，确认真实摘要/详情契约；只读state与列表接口返回200，探测账号当前无邮件，没有生成测试邮件。\n- Android手机ART隔离测试：详情契约28项、异步详情流程9项、验证码/合并37项、持续收件13项通过。重点覆盖摘要空正文→详情正文/字母码、缓存不被摘要覆盖、空内容禁止复制、详情失败重试、错误ID/邮箱隔离。\n- 寄存器、invoke、ScrollView检查通过；最终APK反解70项通过，2451处应用内方法引用可解析；签名v1/v2/v3有效，证书与旧版一致。\n\n【验收边界】\n没有安装或启动主应用，没有复制真实验证码或改剪贴板，没有发送测试邮件。界面实际点击和用户截图中的那封真实邮件仍需升级后验收；隔离测试使用按官方契约构造的模拟响应，不能冒充真实邮件验证。",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v157.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v157.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v157.apk",
-  "size": 5282846,
-  "sha256": "37e00a8489a0fe69815ae9f2cc1ba2a4e8e0f470dec95c3c6f3b36fc9486e630"
+  "versionCode": 158,
+  "versionName": "158.0",
+  "notes": "v158 微云自动签到修复：\n1. 修复签到后台批次结束残留线程对象、下一批可能被吞的问题；开启原签到开关后使用前台定时守护。\n2. 每日签到和后台恢复使用独立闹钟，接入开机、升级、时间变化及原福利后台恢复，不再仅依赖进入福利页补跑。\n3. 手动与自动翻牌统一逐账号检查：先确认当天签到成功，再发送翻牌请求；未签到/失败/冷却/身份变化时停止翻牌并给出原因。\n4. 定时签到与翻牌共用账号状态和执行锁，支持网络错误与429冷却重试，补充广播、守护心跳、批次起止诊断。\n5. 保留现有微云邮箱、小刀及其他模块。本版未包含稳token独立应用或Windows桌面迁移。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v158.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v158.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v158.apk",
+  "size": 5286942,
+  "sha256": "8f34de83de9de2437299e53417468c87942b3418a80a06a07a4f683d159e2f84"
 }
