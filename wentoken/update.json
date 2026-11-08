@@ -1,0 +1,14 @@
+{
+  "packageName": "com.coomi.wentoken",
+  "versionCode": 1,
+  "versionName": "1.0.0",
+  "size": 49710,
+  "sha256": "09c0816aed5421a57a8a3657ab96a17523833a954f74e4eca8138a93968a88ca",
+  "certificateSha256": "aad74721e9e50a1be6ec784c117e5164835f71d8a3caccc83f5a845fbba2fd79",
+  "notes": "稳token助手 1.0.0 首版\n- 独立Android应用：com.coomi.wentoken，单独数据、签名与更新通道。\n- 内嵌官方注册/登录、个人资料与余额、API密钥管理页面。\n- 接入微云临时邮箱API，支持用户主动申请一次原始Gmail、查询当前邮箱和到期时间。\n- 连续多封收件列表、按ID加载完整正文、字母/数字验证码提取、验证码和正文复制。\n- 邮箱密钥与邮件缓存加密；邮箱切换响应隔离；限流冷却和仅前台收信。\n- 不包含集合版签到或Windows桌面模块。注册、邮箱接受及赠送余额按站点真实返回；本版尚未进行真实注册/邮箱全流程验收。",
+  "urls": [
+    "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/wentoken/apk/WentokenAssistant-v1.apk",
+    "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/wentoken/apk/WentokenAssistant-v1.apk",
+    "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/wentoken/apk/WentokenAssistant-v1.apk"
+  ]
+}
