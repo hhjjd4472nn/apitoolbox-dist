@@ -1,10 +1,10 @@
 {
-  "versionCode": 158,
-  "versionName": "158.0",
-  "notes": "v158 微云自动签到修复：\n1. 修复签到后台批次结束残留线程对象、下一批可能被吞的问题；开启原签到开关后使用前台定时守护。\n2. 每日签到和后台恢复使用独立闹钟，接入开机、升级、时间变化及原福利后台恢复，不再仅依赖进入福利页补跑。\n3. 手动与自动翻牌统一逐账号检查：先确认当天签到成功，再发送翻牌请求；未签到/失败/冷却/身份变化时停止翻牌并给出原因。\n4. 定时签到与翻牌共用账号状态和执行锁，支持网络错误与429冷却重试，补充广播、守护心跳、批次起止诊断。\n5. 保留现有微云邮箱、小刀及其他模块。本版未包含稳token独立应用或Windows桌面迁移。",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v158.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v158.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v158.apk",
-  "size": 5286942,
-  "sha256": "8f34de83de9de2437299e53417468c87942b3418a80a06a07a4f683d159e2f84"
+  "versionCode": 159,
+  "versionName": "159.0",
+  "notes": "v159 手机同步协议升级：\n1. 手机电脑同步切换为 apitoolbox-sync-v2，固定端口19300，九模块一次性全量快照。\n2. 覆盖肖恩、天一、小白、密钥查询、微云、星轴、小刀、腾讯反代、千问账号与已取证偏好；补齐 keypool、revproxy、wbhub、qwen_otp_pool 数据源。\n3. 配对码派生 PBKDF2-HMAC-SHA1 密钥，敏感凭据逐项 AES-GCM 密封，快照使用 HMAC-SHA256 校验；错误配对5次自动轮换。\n4. 电脑端仅保留 fixed/enabled/port 本地策略，导入凭据进入 safeStorage，不写入状态文件、renderer 快照或明文备份。\n5. Android 与 Windows 更新清单分离。Windows 桌面工程 0.2.0 与 v159 协议同步，Windows 原生安装包需在 Windows x64 构建机生成。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v159.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v159.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v159.apk",
+  "size": 5291038,
+  "sha256": "0fb77a16fe1d65fd6c32e3d6fe643cc46db7d485e1f8550a2c88c7df8b8226de"
 }
