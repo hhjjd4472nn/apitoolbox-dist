@@ -1,0 +1,55 @@
+name: windows-build
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'desktop-v*'
+
+permissions:
+  contents: read
+
+env:
+  npm_config_audit: 'false'
+  npm_config_fund: 'false'
+
+jobs:
+  build-windows-x64:
+    runs-on: windows-2022
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Check project
+        run: npm run check
+
+      - name: Run tests
+        run: npm test
+
+      - name: Build portable and NSIS
+        run: npm run dist
+
+      - name: List artifacts
+        shell: pwsh
+        run: |
+          Get-ChildItem -Path dist -Filter *.exe | Select-Object FullName,Length
+          Get-FileHash (Get-ChildItem -Path dist -Filter *.exe) -Algorithm SHA256
+
+      - name: Upload Windows artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ApiToolbox-Desktop-0.2.0-Windows-x64
+          if-no-files-found: error
+          path: |
+            dist/*portable*.exe
+            dist/*setup*.exe
+          retention-days: 14

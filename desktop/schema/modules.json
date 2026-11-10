@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "modules": [
+    {"id":"keypool","label":"肖恩","port":8787,"kind":"openai","upstream":"pending"},
+    {"id":"gorouter","label":"天一","port":9192,"kind":"openai","upstream":"pending"},
+    {"id":"baiwhite","label":"小白","port":9193,"kind":"openai","upstream":"https://token.dialoguedui.com"},
+    {"id":"keyquery","label":"密钥查询","port":9194,"kind":"openai","upstream":"http://newapi.openxz.cn"},
+    {"id":"vsllm","label":"微云","port":9195,"kind":"openai","upstream":"https://vsllm.cc"},
+    {"id":"xingzhou","label":"星轴","port":9300,"kind":"openai","upstream":"pending"},
+    {"id":"xiaodao","label":"小刀","port":9302,"kind":"openai","upstream":"https://api.daigua.icu"},
+    {"id":"wbhub","label":"腾讯反代","port":8765,"kind":"openai","upstream":"https://copilot.tencent.com"},
+    {"id":"qianwen","label":"千问","port":7860,"kind":"openai","upstream":"pending"}
+  ]
+}

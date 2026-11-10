@@ -1,0 +1,12 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "type":"object",
+  "required":["schemaVersion","settings","modules","accounts","sync"],
+  "properties":{
+    "schemaVersion":{"type":"integer","minimum":1},
+    "settings":{"type":"object","required":["rotation","localBind","localKey"],"properties":{"rotation":{"enum":["quota","round_robin","fixed","disabled"]},"localBind":{"enum":["127.0.0.1","0.0.0.0"]},"localKey":{"type":"string","minLength":16},"theme":{"enum":["system","light","dark"]}}},
+    "modules":{"type":"array","items":{"type":"object","required":["id","enabled","port"],"properties":{"id":{"type":"string"},"enabled":{"type":"boolean"},"port":{"type":"integer","minimum":1024,"maximum":65535}}}},
+    "accounts":{"type":"array","items":{"type":"object","required":["moduleId","identity","enabled","fixed"],"properties":{"moduleId":{"type":"string"},"identity":{"type":"string","minLength":1},"username":{"type":"string"},"enabled":{"type":"boolean"},"fixed":{"type":"boolean"},"quota":{"type":["number","null"]},"credentialRef":{"type":["string","null"]},"verified":{"enum":["true","false",""]},"updatedAt":{"type":"integer"}}}},
+    "sync":{"type":"object","required":["schemaVersion","pairCode","phoneIp"],"properties":{"schemaVersion":{"type":"integer"},"pairCode":{"type":"string"},"phoneIp":{"type":"string"},"lastSyncAt":{"type":"integer"}}}
+  }
+}

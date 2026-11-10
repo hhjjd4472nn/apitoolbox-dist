@@ -1,0 +1,22 @@
+{
+  "baseline":{"mobileVersionCode":159,"desktopVersion":"0.2.0","scope":"all visible and background user-facing functionality; v2 nine-module LAN sync"},
+  "features":[
+    {"area":"app-shell","item":"double-click launch without DSH/Node/Python/Java installation","state":"desktop shell configured; clean Windows test pending"},
+    {"area":"navigation","item":"home/module/account/sync/jobs/mail/usage/settings/log views","state":"desktop shell implemented"},
+    {"area":"modules","item":"nine module registry and local ports","state":"registered and tested"},
+    {"area":"modules","item":"keypool/gorouter/baiwhite/vsllm/xiaodao/wbhub adapters","state":"generic upstream/header shapes implemented; live upstream acceptance pending"},
+    {"area":"modules","item":"keyquery 9194","state":"Bearer key rotation, expiry selection, DeepSeek X-Session-ID shape implemented"},
+    {"area":"modules","item":"xingzhou 9300","state":"revproxy account data import and baseUrl adapter implemented; live acceptance pending"},
+    {"area":"modules","item":"qianwen 7860","state":"account import implemented; Android libqwen2api.so native gateway requires Windows port"},
+    {"area":"accounts","item":"account state, enabled/disabled, fixed-use, common rotation","state":"implemented and tested"},
+    {"area":"proxy","item":"OpenAI-compatible routes, auth, SSE, body/error bounds","state":"implemented and tested"},
+    {"area":"tasks","item":"bounded job queue and event log","state":"implemented; module business jobs pending"},
+    {"area":"mail","item":"summary/detail mailbox contract and code extraction","state":"client contract implemented; live account polling pending"},
+    {"area":"usage","item":"request/token usage aggregation","state":"state/UI fields present; source parity pending"},
+    {"area":"backup","item":"versioned non-sensitive export/import and merge","state":"v2 export/import implemented; credentials omitted"},
+    {"area":"sync","item":"pair-code phone sync","state":"v2 nine-module protocol; PBKDF2, AES-GCM, HMAC, safeStorage import implemented"},
+    {"area":"platform","item":"Android service/notification/background maps to tray/Toast/Task Scheduler","state":"Windows mapping pending"},
+    {"area":"updater","item":"separate Windows update manifest and hash verification","state":"metadata validation/download core implemented; installer update UX pending"},
+    {"area":"release","item":"offline NSIS installer + portable x64 and clean Windows verification","state":"electron-builder targets configured; Windows artifact pending"}
+  ]
+}

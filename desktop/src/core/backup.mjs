@@ -1,0 +1,8 @@
+import fs from 'node:fs';
+import crypto from 'node:crypto';
+import {normalize,mergeAccounts} from './state.mjs';
+function safeSettings(settings={}) { const out={...settings}; delete out.localKey; return out; }
+export function exportBackup(state){return JSON.stringify({app:'apitoolbox-desktop',schemaVersion:2,exportedAt:Date.now(),settings:safeSettings(state.settings),modules:state.modules,accounts:state.accounts.map(({credential,...account})=>({...account,credentialRef:null})),mobileSettings:state.mobileSettings||{},mobileGroups:state.mobileGroups||{},sync:{schemaVersion:2}},null,2);}
+export function importBackup(text,current){const payload=JSON.parse(text);if(payload.app!=='apitoolbox-desktop')throw new Error('不是API工具箱桌面备份');if(![1,2].includes(payload.schemaVersion))throw new Error('备份版本不支持');return normalize({...current,settings:{...current.settings,...safeSettings(payload.settings)},modules:payload.modules?.length?payload.modules:current.modules,accounts:mergeAccounts(current.accounts,payload.accounts||[]),mobileSettings:{...current.mobileSettings,...(payload.mobileSettings||{})},mobileGroups:{...current.mobileGroups,...(payload.mobileGroups||{})}});}
+export function backupSha(text){return crypto.createHash('sha256').update(text).digest('hex');}
+export function writeBackup(file,state){const text=exportBackup(state);const temp=`${file}.tmp-${process.pid}`;fs.writeFileSync(temp,text,{mode:0o600});fs.renameSync(temp,file);return {file,size:Buffer.byteLength(text),sha256:backupSha(text)};}

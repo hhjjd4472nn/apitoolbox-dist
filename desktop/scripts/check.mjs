@@ -1,0 +1,12 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
+import {DEFAULT_MODULES} from '../src/core/state.mjs';
+import {loadFeatureRegistry} from '../src/core/feature-registry.mjs';
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
+const ids=new Set(DEFAULT_MODULES.map(x=>x.id));const ports=new Set(DEFAULT_MODULES.map(x=>x.port));
+if(ids.size!==9||ports.size!==9)throw new Error('nine-module registry invalid');
+const feature=loadFeatureRegistry();if(feature.pages.length!==9)throw new Error('desktop page registry incomplete');
+for(const f of ['src/main.js','src/preload.js','src/core/state.mjs','src/core/proxy-server.mjs','src/core/sync-client.mjs','renderer/index.html','renderer/app.js','renderer/styles.css','schema/data.schema.json'])if(!fs.existsSync(path.join(root,f)))throw new Error(`missing ${f}`);
+const packageJson=JSON.parse(fs.readFileSync(path.join(root,'package.json'),'utf8'));if(!packageJson.build.win.target.some(x=>x.target==='portable')||!packageJson.build.win.target.some(x=>x.target==='nsis'))throw new Error('both Windows deliverables required');
+console.log(`DESKTOP_CHECK_OK modules=${ids.size} pages=${feature.pages.length} targets=nsis,portable`);

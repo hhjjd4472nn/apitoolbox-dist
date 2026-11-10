@@ -1,0 +1,11 @@
+const BASE='https://vsllm.cc/api/tempmail/v1';
+const LIMIT=2*1024*1024;
+async function request(key,path,options={}){if(!key)throw new Error('邮箱凭据未配置');const response=await fetch(BASE+path,{...options,headers:{accept:'application/json',authorization:`Bearer ${key}`,...(options.headers||{}),},signal:AbortSignal.timeout(options.timeout||30000)});const text=await response.text();if(text.length>LIMIT)throw new Error('邮件响应过大');let json;try{json=JSON.parse(text);}catch{throw new Error(`邮件接口返回非JSON HTTP ${response.status}`);}if(!response.ok||json.success===false)throw new Error(json.message||`邮件接口HTTP ${response.status}`);return json;}
+export async function mailbox(key){return request(key,'/mailbox');}
+export async function account(key){return request(key,'/account');}
+export async function messages(key,since=0){return request(key,`/messages?since=${encodeURIComponent(since)}`);}
+export async function message(key,id){return request(key,`/messages/${encodeURIComponent(id)}`);}
+export function messageBody(message){const text=message?.text||message?.body||'';if(text.trim())return text;return String(message?.html||'').replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/gi,'').replace(/<br\s*\/?/gi,'\n').replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim();}
+export function extractCode(message){if(message?.code)return String(message.code);const body=messageBody(message);const patterns=[/(?:verification\s+code|security\s+code|confirmation\s+code|one[- ]time\s+(?:password|code)|passcode|otp|验证码|校验码|动态码|确认码|登录码)\s*[:：]?\s*([A-Za-z0-9]{4,12}(?:-[A-Za-z0-9]{2,12})?)/i,/(?<![A-Za-z0-9])([0-9]{4,8})(?![A-Za-z0-9])/];for(const pattern of patterns){const found=body.match(pattern);if(found)return found[1];}return '';}
+export async function loadMessage(key,row){const result=await message(key,row.id);const full=result.data?.message||result.data||result;return {...row,...full,detailLoaded:true,code:extractCode(full),body:messageBody(full)};}
+export const contract={summary:'/messages?since=',detail:'/messages/{id}',auth:'Bearer API_KEY',scope:'foreground-or-explicit-job'};
