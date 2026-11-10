@@ -5,7 +5,9 @@ import {dataRoot} from './state.mjs';
 
 const MANIFEST_URLS = [
   'https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/desktop/update.json',
+  'https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/desktop/update.json',
   'https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/desktop/update.json',
+  'https://cdn.statically.io/gh/hhjjd4472nn/apitoolbox-dist/main/desktop/update.json',
 ];
 export async function fetchManifest() {
   for (const url of MANIFEST_URLS) {
