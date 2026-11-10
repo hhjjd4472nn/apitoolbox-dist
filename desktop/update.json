@@ -1,0 +1,15 @@
+{
+  "platform": "win32",
+  "arch": "x64",
+  "versionCode": 201,
+  "versionName": "0.2.1",
+  "notes": "桌面版 0.2.1：\n1. 修复手机同步导入失败（invalid sealed credential），密封凭据明文为空时被误判为非法，导致整包丢弃。\n2. 手机同步页新增「手机地址」输入框，填 IP 可直连，不再依赖全网扫描。\n3. 更新清单增加 raw / statically 备用源，避免单一 CDN 不可用。\n4. 主程序改用 ApiToolbox.exe（去掉中文可执行名），安装目录 %LOCALAPPDATA%\\Programs\\ApiToolbox，卸载保留用户数据。",
+  "url": "https://github.com/hhjjd4472nn/apitoolbox-dist/releases/download/desktop-v0.2.1/ApiToolbox-Desktop-0.2.1-x64-setup.exe",
+  "url2": "https://gh-proxy.com/https://github.com/hhjjd4472nn/apitoolbox-dist/releases/download/desktop-v0.2.1/ApiToolbox-Desktop-0.2.1-x64-setup.exe",
+  "portableUrl": "https://github.com/hhjjd4472nn/apitoolbox-dist/releases/download/desktop-v0.2.1/ApiToolbox-Desktop-0.2.1-x64-portable.exe",
+  "size": 81091736,
+  "sha256": "1856daababe14e7205cbd9db4829920af41e64b5543ecf851ad6c92240949800",
+  "portableSize": 74269581,
+  "portableSha256": "8d68d93e5a980dc2edf51fb70bb9fc88d24fb07e688b9b3c5db6744c496d0d36",
+  "releasedAt": "2026-11-10"
+}
