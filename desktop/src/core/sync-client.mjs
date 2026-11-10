@@ -31,17 +31,27 @@ async function readJsonResponse(response) {
   if (Buffer.byteLength(text) > MAX_PAYLOAD) throw new Error('手机同步快照超过8MB限制');
   try { return {payload:JSON.parse(text),raw:text}; } catch { throw new Error('手机返回的同步快照不是JSON'); }
 }
-export async function syncFromPhone(state, secretStore, pairCode, onProgress = () => {}) {
+export async function syncFromPhone(state, secretStore, pairCode, manualIp = '', onProgress = () => {}) {
+  if (typeof manualIp === 'function') { onProgress = manualIp; manualIp = ''; }
   const code = String(pairCode || state.sync.pairCode || '').trim();
   if (!/^\d{6}$/.test(code)) return {ok:false,error:'请输入手机「电脑同步」页面显示的6位配对码'};
-  let phone = state.sync.phoneIp ? {ip:state.sync.phoneIp,info:await probe(state.sync.phoneIp,1500)} : null;
+  const wanted = String(manualIp || '').trim();
+  let phone = null;
+  if (wanted) {
+    if (!/^\d{1,3}(\.\d{1,3}){3}$/.test(wanted)) return {ok:false,error:'手机地址格式不对，应类似 192.168.31.56'};
+    onProgress({stage:'probe',ip:wanted});
+    const info = await probe(wanted, 3000);
+    if (!info) return {ok:false,error:`连不上 ${wanted}:19300。请确认：①手机「电脑同步」开关是开启 ②手机页面是否显示「正在监听」 ③电脑和手机在同一 Wi-Fi（手机不能是流量/访客网络）④Windows 防火墙允许本程序访问网络`,ip:wanted};
+    phone = {ip:wanted,info};
+  }
+  if (!phone && state.sync.phoneIp) phone = {ip:state.sync.phoneIp,info:await probe(state.sync.phoneIp,1500)};
   if (!phone?.info) {
     onProgress({stage:'scan'});
     const found = await findPhone(onProgress);
     if (found.length === 1) phone = found[0];
     else if (found.length > 1) { phone = found.find(item => item.info?.pair === code) || null; if (!phone) return {ok:false,error:`发现${found.length}台手机，请确认配对码`,found:found.map(item => item.ip)}; }
   }
-  if (!phone) return {ok:false,error:'未找到手机。请确认电脑和手机在同一Wi-Fi，且手机已开启电脑同步'};
+  if (!phone) return {ok:false,error:'局域网里没找到手机。请确认手机已开启「电脑同步」并在「正在监听」状态，电脑与手机连同一个 Wi-Fi；也可以在「手机地址」里直接填手机 IP（手机页面上会显示）。'};
   onProgress({stage:'pull',ip:phone.ip});
   const response = await fetch(`http://${phone.ip}:${SYNC_PORT}/sync?code=${encodeURIComponent(code)}`, {signal:AbortSignal.timeout(30000), headers:{accept:'application/json'}});
   const {payload,raw} = await readJsonResponse(response);
