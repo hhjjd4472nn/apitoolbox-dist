@@ -1,6 +1,6 @@
 {
   "name": "apitoolbox-desktop",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "private": true,
   "description": "API Toolbox full Windows desktop application",
   "main": "src/main.js",
@@ -21,10 +21,43 @@
     "appId": "com.coomi.apitoolbox.desktop",
     "productName": "API 工具箱",
     "asar": true,
-    "directories": {"output": "dist"},
-    "files": ["src/**/*", "renderer/**/*", "schema/**/*", "resources/**/*", "package.json"],
-    "win": {"target": [{"target": "nsis", "arch": ["x64"]}, {"target": "portable", "arch": ["x64"]}]},
-    "nsis": {"artifactName": "ApiToolbox-Desktop-${version}-${arch}-setup.${ext}", "oneClick": false, "perMachine": false, "allowToChangeInstallationDirectory": true, "createDesktopShortcut": true, "createStartMenuShortcut": true},
-    "portable": {"artifactName": "ApiToolbox-Desktop-${version}-${arch}-portable.${ext}"}
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "src/**/*",
+      "renderer/**/*",
+      "schema/**/*",
+      "resources/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "executableName": "ApiToolbox"
+    },
+    "nsis": {
+      "artifactName": "ApiToolbox-Desktop-${version}-${arch}-setup.${ext}",
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    },
+    "portable": {
+      "artifactName": "ApiToolbox-Desktop-${version}-${arch}-portable.${ext}"
+    }
   }
 }
