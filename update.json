@@ -1,10 +1,10 @@
 {
-  "versionCode": 169,
-  "versionName": "169.0",
-  "notes": "v169 修复与增强：\n1. 酒店代理并发接入全局设置：此前酒店模块未读取「我的›设置」里的代理并发上限（写死单并发且直接拒绝），导致 DSH 每轮的标题生成请求与主请求撞车返回 503。现按全局并发值放行，忙时排队而非拒绝。\n2. 酒店账号可随备份一起迁移：此前备份只覆盖 5 个老模块，酒店账号因使用 Android Keystore 加密文件而无法备份。现通过桥接把账号折入备份文件，由备份密码统一加密，可跨设备恢复。\n3. 补足提速：跨账号轮转调度 + 自适应节流（全站 1.5s/账号 2.5s 起，遇 429 翻倍、连续成功回落），替代原串行 12.5s/30.5s。\n4. 补足按量模型修复：用实测 token 校准单次预估，不再因思考类模型输出超过 1 token 而首次即停。\n5. 签到与暗色（v166 已含）：应用内 Turnstile 直签不再跳官网登录；酒店界面跟随系统暗色。\n注意：升级后需重新导出一次备份，旧备份不含酒店账号。",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v169.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v169.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v169.apk",
-  "size": 5360670,
-  "sha256": "9d8bc330087a676b65f1a78f2ac6fd234545a81e269234108be99fda99176d0c"
+  "versionCode": 170,
+  "versionName": "170.0",
+  "notes": "v170 备份范围扩展：\n1. 千问、腾讯反代、星轴三个模块纳入数据同步（备份）。此前备份只覆盖肖恩、天一、小白、维云、小刀等老模块，这三个模块的账号与设置不会被备份。\n2. 现在备份包含：肖恩、天一、小白、维云、小刀、酒店（账号+设置）、千问、腾讯反代、星轴、密钥查询、机场订阅、主题、导航、用量统计、福利记录。\n3. 导入时这三个模块采用整组替换策略，与账号类模块一致。\n4. 旧备份不含新增内容，升级后请重新导出一次备份。\n5. 酒店账号备份（v169 已含）已在另一台设备验证可跨设备恢复。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v170.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v170.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v170.apk",
+  "size": 5364766,
+  "sha256": "62ad92be381a6f84d9ee504b08af1f20bdb948bfda63a102cc05b088484f3a16"
 }
