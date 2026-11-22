@@ -1,10 +1,10 @@
 {
-  "versionCode": 159,
-  "versionName": "159.0",
-  "notes": "v159 手机同步协议升级：\n1. 手机电脑同步切换为 apitoolbox-sync-v2，固定端口19300，九模块一次性全量快照。\n2. 覆盖肖恩、天一、小白、密钥查询、微云、星轴、小刀、腾讯反代、千问账号与已取证偏好；补齐 keypool、revproxy、wbhub、qwen_otp_pool 数据源。\n3. 配对码派生 PBKDF2-HMAC-SHA1 密钥，敏感凭据逐项 AES-GCM 密封，快照使用 HMAC-SHA256 校验；错误配对5次自动轮换。\n4. 电脑端仅保留 fixed/enabled/port 本地策略，导入凭据进入 safeStorage，不写入状态文件、renderer 快照或明文备份。\n5. Android 与 Windows 更新清单分离。Windows 桌面工程 0.2.0 与 v159 协议同步，Windows 原生安装包需在 Windows x64 构建机生成。",
-  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v159.apk",
-  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v159.apk",
-  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v159.apk",
-  "size": 5291038,
-  "sha256": "0fb77a16fe1d65fd6c32e3d6fe643cc46db7d485e1f8550a2c88c7df8b8226de"
+  "versionCode": 169,
+  "versionName": "169.0",
+  "notes": "v169 修复与增强：\n1. 酒店代理并发接入全局设置：此前酒店模块未读取「我的›设置」里的代理并发上限（写死单并发且直接拒绝），导致 DSH 每轮的标题生成请求与主请求撞车返回 503。现按全局并发值放行，忙时排队而非拒绝。\n2. 酒店账号可随备份一起迁移：此前备份只覆盖 5 个老模块，酒店账号因使用 Android Keystore 加密文件而无法备份。现通过桥接把账号折入备份文件，由备份密码统一加密，可跨设备恢复。\n3. 补足提速：跨账号轮转调度 + 自适应节流（全站 1.5s/账号 2.5s 起，遇 429 翻倍、连续成功回落），替代原串行 12.5s/30.5s。\n4. 补足按量模型修复：用实测 token 校准单次预估，不再因思考类模型输出超过 1 token 而首次即停。\n5. 签到与暗色（v166 已含）：应用内 Turnstile 直签不再跳官网登录；酒店界面跟随系统暗色。\n注意：升级后需重新导出一次备份，旧备份不含酒店账号。",
+  "apk": "https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v169.apk",
+  "apk2": "https://gh-proxy.com/https://raw.githubusercontent.com/hhjjd4472nn/apitoolbox-dist/main/apk/ApiToolbox-v169.apk",
+  "apk3": "https://cdn.jsdelivr.net/gh/hhjjd4472nn/apitoolbox-dist@main/apk/ApiToolbox-v169.apk",
+  "size": 5360670,
+  "sha256": "9d8bc330087a676b65f1a78f2ac6fd234545a81e269234108be99fda99176d0c"
 }
